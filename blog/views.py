@@ -25,6 +25,7 @@ import os
 from django.utils.text import slugify
 from PIL import Image, ImageDraw, ImageFont
 import base64
+from django.db.models import Count
 
 
 
@@ -316,11 +317,15 @@ def KunjunganToday(request):
     today = timezone.now().date()
     data_bulan = Kunjungan.objects.filter(masuk__month = bulan_angka)
     data = Kunjungan.objects.filter(masuk__date = today)
+    top_pengunjung = data_bulan.values('pengunjung__user__first_name',  'pengunjung__user__last_name', 'pengunjung__instansi') \
+                            .annotate(total=Count('id')) \
+                            .order_by('-total')[:3]
     return render(request,'kunjungan/today.html',{
         'data':data,
         'bulan_angka':bulan_angka,
         'tahun':tahun,
         'data_bulan':data_bulan,
+        'top_pengunjung':top_pengunjung,
         })
 
 def kunjungan_detail(request, id):
