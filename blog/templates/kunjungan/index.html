@@ -1,0 +1,48 @@
+{% extends "base.html"%}
+
+{% block content %}
+<head>
+<style>
+    td{
+        border: 2px solid #000;
+    }
+    thead td{
+        padding: 15px;
+    }
+    tbody td{
+        padding: 40px;
+    }
+    table{
+        margin:auto;
+    }
+    thead{
+        background-color: blueviolet;
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<h1 style="margin-top:200px">ini website pertamaku</h1>
+<h2>hello world</h2>
+
+
+<table border="2" class="table">
+    <thead>
+        <td class="bg-dark text-light fw-bold">username</td>
+        <td class="bg-dark text-light fw-bold">Nama depan</td>
+        <td class="bg-dark text-light fw-bold">Nama belakang</td>
+        <td class="bg-dark text-light fw-bold">instansi</td>
+    </thead>
+    <tbody>
+    {% for org in data %}
+    <tr>
+        <td class="bg-warning">{{org.user.username}}</td>
+        <td class="bg-warning">{{org.user.first_name}}</td>
+        <td class="bg-warning">{{org.user.last_name}}</td>
+        <td class="bg-warning">{{org.instansi}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+{% endblock %}

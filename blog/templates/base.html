@@ -1,0 +1,984 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perpustakaan | Aksara Garuda</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <!-- Font Awesome 5 for icons -->
+        <link rel="icon" type="image/jpg" href="{% static 'img/logo-perpus.jpg' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @media (min-width: 993px) {
+    .dropdown-menu {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        z-index: 1060 !important;
+        display: none;
+        margin-top: 0.5rem;
+    }
+    
+    .dropdown:hover > .dropdown-menu,
+    .dropdown.show > .dropdown-menu {
+        display: block;
+    }
+    
+    .nav-item.dropdown {
+        position: relative;
+    }
+}
+
+
+        body {
+            isolation: isolate;
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030 !important;
+            transition: all 0.3s ease-in-out;
+        }
+        .nav-menu li {
+    overflow: visible !important;
+}
+
+        .dropdown-menu {
+            z-index: 1050 !important;
+            position: absolute !important;
+        }
+        .nav-item.dropdown {
+            position: relative;
+        }
+        .header.header-transparent {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header.header-solid {
+            background: #ffffff;
+            backdrop-filter: none;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.875rem 0;
+            transition: padding 0.3s ease;
+           
+        }
+
+        .header.header-solid .navigation {
+            padding: 0.625rem 0;
+        }
+
+        .nav-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: inline-block;
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .nav-brand img {
+            height: 48px;
+            width: auto;
+            transition: all 0.2s ease;
+        }
+
+        .header.header-solid .nav-brand img {
+            height: 44px;
+        }
+
+        .nav-menus-wrapper {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            font-weight: bolder !important;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header.header-transparent .nav-menu > li > a {
+             color: #3e1e1e;
+        }
+        .header.header-transparent .nav-menu > li > a:hover {
+             color: rgb(235, 161, 24);
+        }
+
+        .header.header-solid .nav-menu > li > a {
+            color: #3e1e1e;
+        }
+        .header.header-solid .nav-menu > li > a:hover {
+            color: rgb(185, 28, 28);
+        }
+
+        .nav-menu li.active a {
+            color: #7a2b2b;
+            font-weight: 600;
+        }
+
+        .nav-menu li a:hover {
+            color: #7a2b2b;
+            transform: translateY(-1px);
+        }
+
+        /* align-to-right utility */
+        .align-to-right {
+            margin-left: auto;
+        }
+
+        .alio_green {
+            background: transparent;
+            border: 1.5px solid rgba(255, 0, 0, 0.404);
+            color: rgba(255, 0, 0, 0.404) !important;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.25s;
+        }
+
+        .alio_green:hover {
+            background: rgba(255, 0, 0, 0.404);
+            color: white !important;
+            border-color: rgba(255, 0, 0, 0.404);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(44, 122, 77, 0.2);
+        }
+
+        .header.header-solid .alio_green {
+            border-color: rgba(255, 0, 0, 0.404);
+            background: transparent;
+            color: rgba(255, 0, 0, 0.404) !important;
+        }
+
+        .header.header-solid .alio_green:hover {
+            background: rgba(255, 0, 0, 0.404);
+            color: white !important;
+        }
+
+        .nav-toggle {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 24px;
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .nav-toggle:before,
+        .nav-toggle:after,
+        .nav-toggle span {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: rgba(255, 0, 0, 0.404);
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .nav-toggle:before {
+            top: 0;
+        }
+
+        .nav-toggle span {
+            top: 11px;
+        }
+
+        .nav-toggle:after {
+            bottom: 0;
+        }
+
+        .header.header-solid .nav-toggle:before,
+        .header.header-solid .nav-toggle:after,
+        .header.header-solid .nav-toggle span {
+            background-color: rgba(255, 0, 0, 0.404);
+        }
+
+        .nav-menus-wrapper-close-button {
+            display: none;
+        }
+
+        @media (max-width: 992px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-menus-wrapper {
+                position: fixed;
+                top: 0;
+                right: -320px;
+                width: 300px;
+                height: 100vh;
+                background: white;
+                box-shadow: -20px 0 100px rgba(0, 0, 0, 0.15);
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: stretch;
+                padding: 80px 28px 30px;
+                transition: right 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                z-index: 1050;
+                overflow-y: auto;
+            }
+
+            .nav-menus-wrapper.open {
+                right: 0;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1.25rem;
+                width: 100%;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                text-align: left;
+            }
+
+            .nav-menu li a {
+                padding: 8px 0;
+                display: flex;
+                width: 100%;
+                font-size: 1.1rem;
+            }
+
+            .align-to-right {
+                margin-left: 0;
+                margin-top: 24px;
+                border-top: 1px solid #e9ecef;
+                padding-top: 24px;
+            }
+
+            .nav-menus-wrapper-close-button {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 26px;
+                cursor: pointer;
+                color: rgba(255, 0, 0, 0.404);
+                font-weight: 300;
+                width: 36px;
+                height: 36px;
+                text-align: center;
+                line-height: 36px;
+                background: #f1f5f9;
+                border-radius: 50%;
+                transition: background 0.2s;
+            }
+
+            .nav-menus-wrapper-close-button:hover {
+                background: #e2e8f0;
+            }
+
+            /* adjust header logo for mobile */
+            .nav-brand img {
+                height: 42px;
+            }
+        }
+
+        /* ===== HERO SECTION TO DEMO SCROLL EFFECT ===== */
+        .hero-section {
+            height: 85vh;
+            min-height: 550px;
+            /* background: linear-gradient(135deg, #4aaf68 0%, #358d53 100%); */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            z-index: 2;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* content sections */
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: rgba(255, 0, 0, 0.404);
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            color: #1e2a3e;
+        }
+
+        .card p {
+            color: #5a6e85;
+            line-height: 1.5;
+        }
+
+        .scroll-indicator {
+            text-align: center;
+            margin-top: 2rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+    .dropdown-menu {
+        position: static !important;
+        float: none;
+        width: 100%;
+        background: #f8f9fa;
+        margin-top: 0.5rem;
+        border: none;
+        box-shadow: none;
+        padding-left: 1rem;
+        display: none;
+    }
+    
+    .dropdown-menu.show {
+        display: block;
+    }
+    
+    .nav-item.dropdown .dropdown-toggle::after {
+        float: right;
+        margin-top: 8px;
+    }
+}
+        .scroll-indicator i {
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            .hero-section {
+                min-height: 450px;
+            }
+            .content-section {
+                padding: 2rem 1.5rem;
+            }
+            footer > .container > div{
+                flex-wrap: wrap;
+                justify-content: center !important;
+            }
+            footer > .container .right {
+                margin: auto;
+            }
+        }
+
+
+        .tombol-hijau {
+    background: linear-gradient(150rad, #a30c0c, rgb(177, 17, 17), #720e0e);
+    padding: 10px 20px !important;
+    color: white;
+    border: none;
+    text-decoration: none;
+    border-radius: 50px !important;
+    transform: scale(1) !important;
+    transition: 0.3s !important;
+}
+
+.tombol-hijau:hover {
+    background: linear-gradient(150rad, #ad2e2e, #a30c0c, #b61e1e);
+    transform: scale(1.05) !important;
+    color:#fff
+}
+
+       @media (min-width: 993px) {
+    .nav-item.dropdown {
+        position: relative;
+    }
+    
+    .nav-item.dropdown .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 0; /* Hapus jarak */
+        transition: visibility 0.2s, opacity 0.2s;
+        opacity: 0;
+        visibility: hidden;
+        display: block !important; /* Override display none */
+        pointer-events: none; /* Awalnya tidak bisa diklik */
+    }
+    
+    /* Bridge untuk menghubungkan tombol dengan menu */
+    .nav-item.dropdown::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        height: 15px;
+        background: transparent;
+    }
+    
+    .nav-item.dropdown:hover .dropdown-menu,
+    .nav-item.dropdown .dropdown-menu:hover {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        margin-top: 0.5rem;
+    }
+    
+    .dropdown-menu {
+        z-index: 1100 !important;
+    }
+}
+
+#tombolMore{
+    width:100%;
+}
+#tombolMore > a{
+    color:#ff1e1e;
+    text-decoration: none;
+}
+#tombolMore>a:hover{
+    color: #b71212;
+    text-decoration: underline;
+}
+
+img{
+    object-position: top;
+}
+
+footer{
+    background: linear-gradient(150rad, #a30c0c, rgb(177, 17, 17), #720e0e);
+}
+
+#foot {
+    color:white;
+}
+
+@media only screen and (max-width: 767px){
+    #foot {
+        width:100%; 
+    }
+    img{
+        height:auto;
+    }
+    iframe{
+        width:80%;
+    }
+    #alamat {
+        width:80%;
+        
+    }
+}
+@media only screen and (min-width:768px){
+    #foot {
+        width:23%;
+    }
+    #alamat {
+        width:250px;
+    }
+    iframe{
+        width:250px;
+    }
+}
+
+
+
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+
+    <div class="header header-transparent" id="mainHeader">
+        <div class="container">
+            <nav id="navigation" class="navigation">
+                <div class="nav-header">
+                    <a class="nav-brand d-flex"  href="{% url 'home' %}">
+                        <img style="margin-right: 10px" src="{% static 'img/logogabung.png' %}" alt="SmartKampung Logo">
+                        <img style="margin-right: 50px" src="{% static 'img/logo-perpus-removebg.png' %}" alt="SmartKampung Logo">
+                    </a>
+                    <div class="nav-toggle" id="navToggleBtn">
+                        <span></span>
+                    </div>
+                </div>
+
+                <div class="nav-menus-wrapper" id="navMenuWrapper">
+                    <span class="nav-menus-wrapper-close-button" id="closeMenuBtn">✕</span>
+                    <ul class="nav-menu">
+                        <li class="active">
+                            <a href="{% url 'home' %}">
+                                <i class="fas fa-home"></i> Beranda
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i> Profil
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'struktur' %}">
+                                        Struktur
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'galeri' %}">
+                                        Galeri
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'about.me' %}">
+                                        Tentang Kami
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'dashboard' %}">
+                                <i class="fas fa-gauge"></i> Dashboard
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-info-circle"></i> Kunjungan
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'jadwal.kunjungan' %}">
+                                        Jadwal Kunjungan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'tata.tertib' %}">
+                                        Tata Tertib
+                                    </a>
+                                </li>
+                                {% if user.is_authenticated %}
+                                    {% if user.username == '22110009' or user.username == '22120020' %}
+                                        <li>
+                                            <a class="dropdown-item" href="{% url 'kunjungan.hari.ini' %}">
+                                                Data Kunjungan
+                                            </a>
+                                        </li>
+                                        {% if user.username == '22110009' %}
+                                            <li>
+                                                <a class="dropdown-item" href="{% url 'rekap.absensi' %}">
+                                                    Absensi Petugas
+                                                </a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a class="dropdown-item" href="{% url 'register.tamu' %}">
+                                                    Input Tamu
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-book"></i> Buku
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'buku.index' %}">
+                                        Daftar Buku
+                                    </a>
+                                </li>  
+                                 {% if user.is_authenticated %} 
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'buku.show.scanner' %}">
+                                        Pinjam / Kembalikan Buku
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'buku.pinjam' %}">
+                                        Riwayat Peminjaman
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    
+                    </ul>
+                    
+                    <ul class="nav-menu align-to-right">
+
+                        {% if user.is_authenticated %}
+                            <li class="d-flex align-items-center gap-2">
+                            {% if user.pengunjung.foto %}                               
+                                <img 
+                                    src="{{ user.pengunjung.foto.url }}" 
+                                    alt="foto"
+                                    style="
+                                        min-width: 40px;
+                                        width:40px;
+                                        height:40px;
+                                        border-radius:50%;
+                                        object-fit:cover;
+                                        object-position: top;
+                                        border:2px solid rgba(255, 0, 0, 0.404);
+                                    "
+                                >
+                            {% endif %}
+                            <span style="font-weight:600; color:rgba(255, 0, 0, 0.404);">
+                                {{ user.first_name }}
+                            </span>
+                        </li>
+                    
+                        <li>
+                            <form method="POST" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="alio_green">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+                    
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login.options' %}" class="alio_green">
+                                <i class="fas fa-sign-in-alt"></i>
+                                <span>Masuk</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <main class="py-0">
+            {% block content %}
+            {% endblock content %}
+    </main>
+    <footer style="height: auto;margin-bottom: 0px;padding-bottom: 0px;">
+        <div class="container p-4" style="height: 90%;">
+            <div class="d-flex justify-content-between">
+                <div class="left d-flex justify-content-start gap-3 align-items-center">
+                    <img src="{% static 'img/logo-perpus.jpg' %}" alt="" style="height: 50px;" class="rounded-3">
+                    <h4 class="fw-bold text-light align-items-center">Perpustakaan Aksara Garuda</h4>
+                </div>
+                <div class="right ml-auto gap-1 d-flex justify-content-end">
+                    <a href="https://amnsurabaya.id" title="website">
+                        <div class="bg-light text-red-700 rounded-circle align-content-center text-center py-auto text-2xl" style="width: 40px;height: 40px;">
+                        <i class="fas fa-earth-asia"></i>  
+                        </div> 
+                    </a>
+                    <a href="mailto:amn@upnjatim.ac.id" title="email">
+                        <div class="bg-light text-red-700 rounded-circle align-content-center text-center py-auto text-2xl" style="width: 40px;height: 40px;">
+                        <i class="fas fa-envelope"></i>  
+                        </div> 
+                    </a>
+                    <a href="https://wa.me/082142667945" title="telepon">
+                        <div class="bg-light text-red-700 rounded-circle align-content-center text-center py-auto text-2xl" style="width: 40px;height: 40px;">
+                        <i class="fas fa-phone-volume"></i>  
+                        </div> 
+                    </a>
+                    <a href="https://www.instagram.com/amnsurabaya.official" title="instagram">
+                        <div class="bg-light text-red-700 rounded-circle align-content-center text-center py-auto text-2xl" style="width: 40px;height: 40px;">
+                        <i class="fab fa-instagram"></i>  
+                        </div> 
+                    </a>
+                </div>
+            </div>
+            <hr class="border border-1 border-light my-3 ">
+            <div  class="d-flex justify-content-evenly flex-wrap px-5">
+                <div class="ml-auto" id="foot">
+                    <h4 class="fw-bold"><a class="text-decoration-none fw-bold text-warning" href="#myCarousel">Keunggulan</a></h4>
+                    <ul class="list-disc list-inside">
+                        <li>Ribuan Buku Tersedia</li>
+                        <li>Ruangan ber AC</li>
+                        <li>Fasilitas Komputer</li>
+                        <li>Free Wi-Fi</li>
+                    </ul>
+                    <p id="alamat" style="text-align: justify;" class="text-light mt-2">
+                        <Span class="text-warning">Asrama Mahasiswa Nusantara</Span>, 
+MP7P+WPM, Siwalankerto, Kec. Wonocolo, Surabaya, Jawa Timur 60236
+                    </p> 
+                    <img src="{% static 'img/logogabung.png' %}" alt="">  
+                </div>
+                <div class="ml-auto" id="foot">
+                    <h4 class="fw-bold"><a class="text-decoration-none fw-bold text-warning" href="#myCarousel">Tautan Cepat</a></h4>
+                    <ul class="list-disc list-inside">
+                        <a class="text-light text-decoration-none" href="{% url 'struktur' %}"><li>Struktur</li></a>
+                        <a class="text-light text-decoration-none" href="{% url 'about.me' %}"><li>Tentang Kami</li></a>
+                        <a class="text-light text-decoration-none" href="{% url 'galeri' %}"><li>Galeri Kegiatan</li></a>
+                        <a class="text-light text-decoration-none" href="{% url 'buku.index' %}"><li>Katalog Buku</li></a>
+                        <a class="text-light text-decoration-none" href="{% url 'home' %}"><li>Jadwal Kunjungan</li></a>
+                        <a class="text-light text-decoration-none" href="{% url 'tata.tertib' %}"><li>Tata Tertib</li></a>
+                    </ul>
+                </div>
+                <div class="ml-auto" id="foot">
+                    <h3 class="fw-bold text-center mb-3 text-warning">Google Map</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.1667489607953!2d112.73422257404214!3d-7.335162472145245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb79aaa29a3f%3A0xe077371388571356!2sAsrama%20Mahasiswa%20Nusantara!5e0!3m2!1sid!2sid!4v1780172264860!5m2!1sid!2sid" width="250" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            <hr class="border border-1 border-light my-3 ">
+            <div class="supportid d-flex flex-wrap justify-content-between">
+                <span class="text-light">2026 &copy;Created By: Informatics Engineering Student</span>
+                <span class="text-light">Supported By : Asrama Mahasiswa Nusantara Surabaya</span>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                AOS.init();
+                Swal.fire({
+                    icon: '{% if message.tags == "success" %}success{% elif message.tags == "error" %}error{% elif message.tags == "warning" %}warning{% else %}info{% endif %}',
+                    title: '{{ message }}',
+                    showConfirmButton: false,
+                    timer: 2500,
+                    timerProgressBar: true
+                });
+            </script>
+        {% endfor %}
+    {% endif %}
+
+    <script>
+        const header = document.getElementById('mainHeader');
+        const scrollThreshold = 50;
+
+        function handleScroll() {
+            if (window.scrollY > scrollThreshold) {
+                header.classList.remove('header-transparent');
+                header.classList.add('header-solid');
+            } else {
+                header.classList.remove('header-solid');
+                header.classList.add('header-transparent');
+            }
+        }
+
+        handleScroll();
+        window.addEventListener('scroll', handleScroll);
+
+        const navToggle = document.getElementById('navToggleBtn');
+        const navWrapper = document.getElementById('navMenuWrapper');
+        const closeBtn = document.getElementById('closeMenuBtn');
+
+        function openMobileNav() {
+            if (navWrapper) navWrapper.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileNav() {
+            if (navWrapper) navWrapper.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        if (navToggle) {
+            navToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (navWrapper.classList.contains('open')) {
+                    closeMobileNav();
+                } else {
+                    openMobileNav();
+                }
+            });
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                closeMobileNav();
+            });
+        }
+
+        const allNavLinks = document.querySelectorAll('.nav-menu a');
+        allNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 992) {
+                    closeMobileNav();
+                }
+            });
+        });
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                if (navWrapper) navWrapper.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+        const loginBtn = document.getElementById('loginButtonLama');
+        if (loginBtn) {
+            loginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Form Login SmartKampung\n\nFungsi ini menampilkan modal login pada implementasi asli. Navigasi sudah sesuai dengan desain header transparan yang berubah menjadi putih saat di-scroll.');
+            });
+        }
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+    var dropdownList = dropdownElementList.map(function(dropdownToggleEl) {
+        return new bootstrap.Dropdown(dropdownToggleEl, {
+            popperConfig: function(defaultBsPopperConfig) {
+                return {
+                    ...defaultBsPopperConfig,
+                    placement: 'bottom-start'
+                };
+            }
+        });
+    });
+    
+    if (window.innerWidth <= 992) {
+        document.querySelectorAll('.nav-item.dropdown > .dropdown-toggle').forEach(function(toggle) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                var parentLi = this.closest('.nav-item.dropdown');
+                var dropdownMenu = parentLi.querySelector('.dropdown-menu');
+                
+                document.querySelectorAll('.nav-item.dropdown .dropdown-menu.show').forEach(function(menu) {
+                    if (menu !== dropdownMenu) {
+                        menu.classList.remove('show');
+                    }
+                });
+                
+                dropdownMenu.classList.toggle('show');
+            });
+        });
+    }
+    
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth <= 992) {
+            if (!e.target.closest('.nav-item.dropdown')) {
+                document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
+                    menu.classList.remove('show');
+                });
+            }
+        }
+    });
+});
+        
+        console.log('SmartKampung Navigation: Transparent header → white on scroll (active)');
+    </script>
+</html>

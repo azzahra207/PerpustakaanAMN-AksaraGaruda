@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .hero-kunjungan {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+        padding: 80px 0 50px 0;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    .hero-kunjungan .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .menu-card {
+            background: white;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .menu-card:hover {
+            background: #a00000;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* CARD SOP */
+
+        .sop-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+
+        .sop-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #a00000;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        /* GAMBAR SOP */
+
+        .sop-img {
+            max-width: 650px;
+            width: 100%;
+            display: block;
+            margin: 0 auto 15px auto;
+            border-radius: 10px;
+            transition: 0.3s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+        }
+
+        .sop-img:hover {
+            transform: scale(1.01);
+        }
+
+</style>
+<section class="hero-kunjungan" data-aos="fade-down" data-aos-duration="1000">
+    <div class="container">
+        <div class="text-center text-white">
+            <div class="garuda-icon d-flex justify-content-center">
+                <img class="bg-light rounded-circle mb-3" src="{% static 'img/logo-perpus-removebg.png' %}" alt="">
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Tata Tertib Perpustakaan</h1>
+            <p class="lead mb-4">Asrama Mahasiswa Nusantara Surabaya</p>
+        </div>
+    </div>
+</section>
+
+
+<div class="grid md:grid-cols-5 gap-3 mb-8 px-4">
+
+    <a href="#perpus">
+        <div class="menu-card">
+            Tata Tertib Perpustakaan
+        </div>
+    </a>
+
+    <a href="#komputer">
+        <div class="menu-card">
+            Penggunaan Komputer
+        </div>
+    </a>
+
+    <a href="#kunjungan">
+        <div class="menu-card">
+            Kunjungan Perpustakaan
+        </div>
+    </a>
+
+    <a href="#peminjaman">
+        <div class="menu-card">
+            Peminjaman & Pengembalian
+        </div>
+    </a>
+
+    <a href="#penjaga">
+        <div class="menu-card">
+            Penjaga Perpustakaan
+        </div>
+    </a>
+
+</div>
+
+<div id="perpus" class="sop-card">
+
+    <div class="sop-title">
+        Tata Tertib Perpustakaan
+    </div>
+
+    <img src="{% static 'img/PERPUS1.png' %}" class="sop-img">
+
+    <img src="{% static 'img/PERPUS2.png' %}" class="sop-img">
+
+</div>
+
+<div id="komputer" class="sop-card">
+
+    <div class="sop-title">
+        Penggunaan Komputer
+    </div>
+
+    <img src="{% static 'img/KOMPUTER.png' %}" class="sop-img">
+
+</div>
+
+<div id="kunjungan" class="sop-card">
+
+    <div class="sop-title">
+        Kunjungan Perpustakaan
+    </div>
+
+    <img src="{% static 'img/KUNJUNGAN.png' %}" class="sop-img">
+
+</div>
+
+
+<div id="peminjaman" class="sop-card">
+
+    <div class="sop-title">
+        Peminjaman dan Pengembalian Barang
+    </div>
+
+    <img src="{% static 'img/PEMINJAMAN.png' %}" class="sop-img">
+
+    <img src="{% static 'img/PEMINJAMAN2.png' %}" class="sop-img">
+
+</div>
+
+<div id="penjaga" class="sop-card">
+
+    <div class="sop-title">
+        Penjaga Perpustakaan
+    </div>
+
+    <img src="{% static 'img/PENJAGA.png' %}" class="sop-img">
+
+</div>
+
+<div class="text-center mt-8 mb-8">
+
+    <a href="#"
+       class="bg-red-700 hover:bg-red-900 text-white px-5 py-2 rounded-lg font-semibold">
+        ↑ Kembali ke Menu
+    </a>
+
+</div>
+
+{% endblock %}

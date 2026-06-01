@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+    }
+    .scanner-container {
+        max-width: 500px;
+        margin: 10px auto;
+        padding: 20px;
+    }
+    #scannerInput {
+        font-size: 18px;
+        text-align: center;
+        letter-spacing: 2px;
+    }
+    .status-indicator {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .status-ready {
+        background-color: #28a745;
+    }
+    .status-waiting {
+        background-color: #ffc107;
+    }
+    .status-error {
+        background-color: #dc3545;
+    }
+</style>
+
+<section class="bodiLogin">
+    <div class="scanner-container" style="margin-top: 100px;">
+        <div class="card shadow">
+            <div class="card-header bg-danger-subtle border">
+                <h4 class="mb-0 fw-bold">Scanner Hardware Login</h4>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <span class="status-indicator status-ready" id="statusIndicator"></span>
+                    <span id="statusText">Scanner siap - Scan QR Code</span>
+                </div>
+
+                <div class="mb-3">
+                    <input type="text" 
+                           class="form-control form-control-lg" 
+                           id="scannerInput"
+                           autocomplete="off"
+                           autocorrect="off"
+                           autocapitalize="off"
+                           spellcheck="false"
+                           placeholder="Menunggu scan..."
+                           style="background-color: #f8f9fa;">
+                    <div class="form-text">
+                        Arahkan scanner Bluetooth ke QR Code mahasiswa
+                    </div>
+                </div>
+
+                <div id="scanResult" class="mt-3"></div>
+
+                <div class="mt-4">
+                    <button onclick="clearScanner()" class="btn btn-danger">
+                        Hapus
+                    </button>
+                    <a href="{% url 'login.options' %}" class="btn btn-primary float-end">
+                        ← Kembali
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    let isProcessing = false;
+    let lastValue = '';
+    let processTimeout = null;
+    
+    const scannerInput = document.getElementById('scannerInput');
+    const manualInput = document.getElementById('manualInput');
+    const scanResult = document.getElementById('scanResult');
+    const statusIndicator = document.getElementById('statusIndicator');
+    const statusText = document.getElementById('statusText');
+    
+    function updateStatus(status, text) {
+        statusIndicator.className = 'status-indicator status-' + status;
+        statusText.textContent = text;
+    }
+    
+    function resetScanner() {
+        scannerInput.value = '';
+        manualInput.value = '';
+        lastValue = '';
+        if (processTimeout) clearTimeout(processTimeout);
+        scanResult.innerHTML = '';
+        updateStatus('ready', 'Scanner siap - Scan QR Code');
+        isProcessing = false;
+        scannerInput.focus();
+    }
+    
+    function processScanData(scannedData) {
+        if (isProcessing) return;
+        let cleanData = scannedData.trim();
+        cleanData = cleanData.replace(/[^\x20-\x7E|]/g, '');
+        
+        console.log('Processing data:', cleanData);
+        
+        if (!cleanData.includes('|')) {
+            updateStatus('error', 'Format QR tidak valid');
+            scanResult.className = 'alert alert-danger';
+            scanResult.innerHTML = '❌ Format QR tidak valid (harus mengandung |)';
+            setTimeout(() => resetScanner(), 2000);
+            return;
+        }
+        
+        isProcessing = true;
+        updateStatus('waiting', 'Memproses QR Code...');
+        
+        fetch("{% url 'scanner.auth' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                qr_code: cleanData
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                updateStatus('ready', 'Login berhasil!');
+                scanResult.className = 'alert alert-success';
+                scanResult.innerHTML = '✅ <strong>Login Berhasil!</strong><br>Mengalihkan ke dashboard...';
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 1500);
+            } else {
+                updateStatus('error', 'Gagal');
+                scanResult.className = 'alert alert-danger';
+                scanResult.innerHTML = `❌ <strong>Login Gagal!</strong><br>${data.message}`;
+                setTimeout(() => {
+                    resetScanner();
+                    isProcessing = false;
+                }, 3000);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            updateStatus('error', 'Error jaringan');
+            scanResult.className = 'alert alert-danger';
+            scanResult.innerHTML = '❌ Terjadi kesalahan jaringan';
+            setTimeout(() => {
+                resetScanner();
+                isProcessing = false;
+            }, 3000);
+        });
+    }
+    
+    setInterval(function() {
+        if (isProcessing) return;
+        
+        const currentValue = scannerInput.value;
+        
+        if (currentValue !== lastValue) {
+            lastValue = currentValue;
+            
+            if (processTimeout) clearTimeout(processTimeout);
+            
+            processTimeout = setTimeout(function() {
+                if (currentValue.length > 0 && currentValue.includes('|')) {
+                    console.log('Detected complete data:', currentValue);
+                    processScanData(currentValue);
+                    scannerInput.value = '';
+                    lastValue = '';
+                }
+            }, 200);
+        }
+    }, 50);
+    
+    scannerInput.addEventListener('input', function(e) {
+        if (isProcessing) return;
+        
+        const value = e.target.value;
+        
+        if (processTimeout) clearTimeout(processTimeout);
+        
+        if (value.includes('|') && value.length > 20) {
+            processTimeout = setTimeout(function() {
+                processScanData(value);
+                scannerInput.value = '';
+                lastValue = '';
+            }, 100);
+        }
+    });
+    
+    scannerInput.addEventListener('paste', function(e) {
+        e.preventDefault();
+        const pastedData = e.clipboardData.getData('text');
+        if (pastedData) {
+            processScanData(pastedData);
+            scannerInput.value = '';
+        }
+    });
+    
+    function processManualInput() {
+        const manualData = manualInput.value.trim();
+        if (manualData) {
+            processScanData(manualData);
+            manualInput.value = '';
+        }
+    }
+    
+    function clearScanner() {
+        resetScanner();
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        scannerInput.focus();
+        updateStatus('ready', 'Scanner siap - Scan QR Code');
+    });
+    
+    manualInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            processManualInput();
+        }
+    });
+    
+    scannerInput.addEventListener('blur', function() {
+        setTimeout(() => scannerInput.focus(), 100);
+    });
+</script>
+
+{% endblock %}

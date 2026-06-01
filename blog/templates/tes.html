@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+<section style="margin-top: 100px;">
+    <h1>Dashboard {{ status }}</h1>
+    <h2>Selamat datang, {{ user.first_name }}</h2>
+
+    <div class="biodata">
+        <ul>
+            <li>Nama : {{pengunjung.user.first_name}} {{pengunjung.user.last_name}}</li>
+            <li>{{pengunjung.get_labelInstansi}} : {{pengunjung.instansi}}</li>
+            <li>{{pengunjung.get_labelAlamat}} : {{pengunjung.alamat}}</li>
+        </ul>
+    </div>
+
+    {% if status == 'Tamu' %}
+    <div class="card">
+    <h3>Menu Tamu</h3>
+        <p>Tujuan kunjungan: {{ pengunjung.pengunjungistimewa.tujuan }}</p>
+        <ul>
+            <li>Lihat status izin</li>
+        </ul>
+    </div>
+    {% else %}
+    <div class="card">
+        <h3>Menu Penghuni</h3>
+        <form action="{% url 'store.visit' pengunjung.nik %}" method="POST">
+            {% csrf_token %}             
+            <label>- APA TUJUAN ANDA? -</label>
+            <input type="radio" name="tujuan" value="Belajar"> Belajar
+            <input type="radio" name="tujuan" value="Baca Buku"> Baca Buku
+            <input type="radio" name="tujuan" value="Pinjam Komputer"> Pinjam Komputer
+            <button type="submit">Submit</button>
+        </form>
+        <ul>
+            <li>Lihat kunjungan</li>
+            <li>Riwayat masuk</li>
+        </ul>
+    </div>
+
+<div class="card">
+    <div class="d-flex justify-content-center gap-3 w-100">
+        <div class="w-25">
+            <img style="width: 300px;"  src="{{ pengunjung.foto.url }}" alt="">
+            <p class="fw-bold text-center text-dark">{{pengunjung.user.first_name}} {{pengunjung.user.last_name}}</p>
+        </div>
+        <div class="w-50">
+            <div class="d-flex gap-3">
+                <div class="card" style="width: 150px;">
+                    10{{pengunjung.jumlahHadir}}
+                </div>
+                <div class="card" style="width: 150px;">
+                    10{{pengunjung.jumlahHadir}}
+                </div>
+            </div>
+            <div class="card my-3 overflow-y-auto" style="height: 200px;">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt vel architecto porro quaerat corporis reprehenderit labore nihil accusantium nulla totam neque sapiente, odit maiores, illum magnam at commodi possimus laboriosam eligendi iusto ipsum. Laboriosam impedit recusandae beatae vel, vitae molestias odio doloremque quas facilis sapiente at saepe? Numquam, odit recusandae!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt vel architecto porro quaerat corporis reprehenderit labore nihil accusantium nulla totam neque sapiente, odit maiores, illum magnam at commodi possimus laboriosam eligendi iusto ipsum. Laboriosam impedit recusandae beatae vel, vitae molestias odio doloremque quas facilis sapiente at saepe? Numquam, odit recusandae!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt vel architecto porro quaerat corporis reprehenderit labore nihil accusantium nulla totam neque sapiente, odit maiores, illum magnam at commodi possimus laboriosam eligendi iusto ipsum. Laboriosam impedit recusandae beatae vel, vitae molestias odio doloremque quas facilis sapiente at saepe? Numquam, odit recusandae!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt vel architecto porro quaerat corporis reprehenderit labore nihil accusantium nulla totam neque sapiente, odit maiores, illum magnam at commodi possimus laboriosam eligendi iusto ipsum. Laboriosam impedit recusandae beatae vel, vitae molestias odio doloremque quas facilis sapiente at saepe? Numquam, odit recusandae!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt vel architecto porro quaerat corporis reprehenderit labore nihil accusantium nulla totam neque sapiente, odit maiores, illum magnam at commodi possimus laboriosam eligendi iusto ipsum. Laboriosam impedit recusandae beatae vel, vitae molestias odio doloremque quas facilis sapiente at saepe? Numquam, odit recusandae!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt vel architecto porro quaerat corporis reprehenderit labore nihil accusantium nulla totam neque sapiente, odit maiores, illum magnam at commodi possimus laboriosam eligendi iusto ipsum. Laboriosam impedit recusandae beatae vel, vitae molestias odio doloremque quas facilis sapiente at saepe? Numquam, odit recusandae!</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% if status == 'Petugas' %}
+        <div class="card">
+            <h3>Menu Petugas</h3>
+
+            <ul>
+                <li>Scanner absensi</li>
+                <li>Jadwal hari ini</li>
+                <li>Laporan hadir : {{pengunjung.petugas.jumlahHadir}}</li>
+            </ul>
+        
+            <a href="{% url 'petugas.show_scanner' %}" class="btn btn-primary">
+                Buka Scanner
+            </a>
+</div>
+    {% endif %}
+    {% endif %}
+
+</section>
+{% endblock %}

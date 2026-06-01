@@ -1,0 +1,397 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .hero-kunjungan {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+        padding: 80px 0 50px 0;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    .hero-kunjungan .container {
+        position: relative;
+        z-index: 2;
+    }
+    .badge-nasional {
+        background: rgba(225,225,225,0.2);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        display: inline-block;
+    }
+    .table-container {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        margin-bottom: 40px;
+    }
+    
+    .table-responsive-custom {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+    }
+    
+    .custom-table thead {
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    }
+    
+    .custom-table thead th {
+        padding: 1rem 1.5rem;
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+        border: none;
+        text-align: left;
+    }
+    
+    .custom-table tbody tr {
+        border-bottom: 1px solid #e2e8f0;
+        transition: background 0.2s;
+    }
+    
+    .custom-table tbody tr:hover {
+        background: #fef2f2;
+    }
+    
+    .custom-table tbody td {
+        padding: 1rem 1.5rem;
+        color: #1a202c;
+        vertical-align: middle;
+    }
+</style>
+<section class="hero-kunjungan" data-aos="fade-down" data-aos-duration="1000">
+    <div class="container">
+        <div class="text-center text-white">
+            <div class="garuda-icon d-flex justify-content-center">
+                <img class="bg-light rounded-circle mb-3" src="{% static 'img/logo-perpus-removebg.png' %}" alt="">
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Riwayat Peminjaman Buku</h1>
+            <p class="lead mb-4">Asrama Mahasiswa Nusantara Surabaya</p>
+        </div>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <span class="badge-nasional">
+                    <i class="fas fa-book me-1"></i> Peminjaman Aktif : {{ pinjam_aktif|length }} Buku
+                </span>
+                <span class="badge-nasional">
+                    <i class="fas fa-book me-1"></i> Riwayat Peminjaman : {{ peminjaman|length }} Kali
+                </span>
+            </div>
+    </div>
+</section>
+<div class="container">
+    <div class="mb-5">
+        <h3 class="fw-bold" style="font-size: 30px;">Peminjaman Aktif</h3>
+        <div class="rounded-3 my-3" style="width: 120px; border: solid #a01313 3px;"></div> 
+        <div class="row g-4">
+            {% for book in pinjam_aktif %}
+            <div class="col-md-6">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden hover-shadow transition-all h-100">
+                    <div class="row g-0 h-100">
+                        <div class="col-4 bg-light d-flex align-items-center p-3">
+                            <img src="{{ book.buku.jenis_buku.foto.url }}" 
+                                 class="img-fluid rounded-3"
+                                 style="aspect-ratio: 3/4; object-fit: cover; width: 100%;">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body p-3">
+                                <h5 class="fw-bold mb-1">{{ book.buku.jenis_buku.judul|truncatechars:35 }}</h5>
+                                <p class="text-muted small mb-2">{{ book.buku.jenis_buku.pengarang|default:"Tidak diketahui" }}</p>
+                                <span class="badge bg-warning text-dark mb-2">Dipinjam</span>
+                                <div class="small">
+                                    <div><strong>Waktu Peminjaman :</strong> {{ book.masuk|date:"d M Y"|default:"-" }}</div>
+                                    <div><strong>Batas Pengembalian :</strong> {{ book.batas_pengembalian|date:"d M Y"|default:"-" }}</div>
+                                    <div><strong>No. Inventaris :</strong> {{ book.buku.nomor_inventaris|default:"-" }}</div>
+                                    <div><strong>Sisa Waktu :</strong> {{ book.sisa_waktu }} </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-success text-center py-4 rounded-4">
+                    Tidak ada peminjaman buku aktif.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div>
+        <h3 class="fw-bold" style="font-size: 30px;">Riwayat Peminjaman</h3>
+        <div class="rounded-3 my-3" style="width: 120px; border: solid #a01313 3px;"></div>  
+        
+        <div class="container my-5">
+    <div class="table-container">
+        <div class="table-responsive-custom">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul Buku</th>
+                        <th>Pengarang</th>
+                        <th>No. Inventaris</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Tanggal Kembali</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in peminjaman %}
+                    <tr>
+                        <td>
+                            <span class="badge bg-light text-dark p-2">
+                                {{ forloop.counter }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-placeholder me-3">
+                                    <img src="{{ item.buku.jenis_buku.foto.url }}"  style="width: 60px; height: 70px; object-fit: cover;" class="rounded-2">
+                                </div>
+                                <div>
+                                    <div class="fw-bold">{{ item.buku.jenis_buku.judul|truncatechars:40 }}</div>
+                                    <div class="small text-muted">{{ item.buku.jenis_buku.isbn|truncatechars:40 }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark p-2">
+                                {{ item.buku.jenis_buku.pengarang|default:"-" }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark p-2">
+                                {{ item.buku.nomor_inventaris|default:"-" }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="fw-semibold">
+                                {{ item.masuk|date:"d/m/Y"|default:"-" }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark">
+                                {{ item.keluar|date:"d/m/Y"|default:"-" }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-success text-light">
+                                Selesai
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <i class="fas fa-calendar-times"></i>
+                                </div>
+                                <h4 class="text-gray-600 mb-2"> Belum ada riwayat peminjaman</h4>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+<style>
+.hover-shadow:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+.transition-all {
+    transition: all 0.3s ease;
+}
+</style>
+
+
+
+<!-- <div class="container mb-5">
+
+    <div class="mb-5">
+        {% for book in pinjam_aktif %}
+             <div class="card mx-auto div-container" style="width: 90%;">
+                 <div class="d-flex flex-row gap-3 p-3">
+                     <div style="width: 40%;" class="left">
+                         <img style="width: 90%;margin: auto;" src="{{ book.buku.jenis_buku.foto.url }}" alt="">
+                        </div>
+                        <div style="width: 60%;" class="p-3 right">
+                    <h3 class="fw-bold" style="font-size: 30px;">{{ book.buku.jenis_buku.judul }}</h3>
+                    <div class="rounded-3 mb-3" style="width: 120px; border: solid #a01313 3px;"></div> 
+                        
+                    <div class="row g-2 mt-3">
+
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Nomor Katalog</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.nomor_katalog|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">ISBN-ISSN</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.isbn_issn|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Bahasa</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.bahasa|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Pengarang</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.pengarang|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Negara</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.negara|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Provinsi</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.provinsi|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Kota</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.kota|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Penerbit</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.penerbit|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Tahun</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.tahun|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                        <div class="col-6">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Subjek</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.subjek|default:"-" }}</span>
+                            </div>
+                        </div>  
+                    
+                        <div class="col-12">
+                            <div class="card bg-secondary-subtle p-2 rounded-2 border-0">
+                                <span class="text-secondary" style="font-size: 14px;">Jenis</span>
+                                <span class="text-dark fw-bold">{{ book.buku.jenis_buku.jenis|default:"-" }}</span>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                </div>
+                <div class="p-3">
+                    <h5 class="fw-bold mb-3" style="font-size: 30px;">Sinopsis</h5>
+                    <div class="rounded-3 mb-3" style="width: 120px; border: solid #a01313 3px;"></div> 
+                    <p style="text-align: justify;">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquid sapiente ducimus velit excepturi repudiandae? Soluta recusandae eius neque aperiam consequuntur odit itaque fuga hic nam sint praesentium placeat veritatis sit iste expedita quia explicabo vero porro animi, corporis, voluptatibus, nisi nobis temporibus possimus? Accusantium quaerat quas rerum ratione odio, sunt impedit, quasi nobis quibusdam harum veniam possimus sapiente illo qui, facere laborum! Necessitatibus numquam impedit nobis cupiditate modi earum vitae ipsam! Nulla doloribus voluptatibus iusto hic amet blanditiis officia nesciunt qui ex optio quibusdam consequatur culpa temporibus voluptate tenetur neque officiis commodi velit, quaerat aliquid? At obcaecati officiis accusantium!
+                    </p>
+                    <p style="text-align: justify;">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquid sapiente ducimus velit excepturi repudiandae? Soluta recusandae eius neque aperiam consequuntur odit itaque fuga hic nam sint praesentium placeat veritatis sit iste expedita quia explicabo vero porro animi, corporis, voluptatibus, nisi nobis temporibus possimus? Accusantium quaerat quas rerum ratione odio, sunt impedit, quasi nobis quibusdam harum veniam possimus sapiente illo qui, facere laborum! Necessitatibus numquam impedit nobis cupiditate modi earum vitae ipsam! Nulla doloribus voluptatibus iusto hic amet blanditiis officia nesciunt qui ex optio quibusdam consequatur culpa temporibus voluptate tenetur neque officiis commodi velit, quaerat aliquid? At obcaecati officiis accusantium!
+                    </p>
+                </div>
+                </div>
+        {% endfor %}
+    </div>
+
+
+    <h3 class="fw-bold" style="font-size: 30px;">Riwayat Peminjaman</h3>
+<div class="rounded-3 my-3" style="width: 120px; border: solid #a01313 3px;"></div> 
+    <div class="row">
+
+        {% for item in peminjaman %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100">
+
+                <img src="{{ item.buku.jenis_buku.foto.url }}"
+                     class="card-img-top"
+                     style="height:300px; object-fit:cover;">
+
+                <div class="card-body">
+                    <h5 class="fw-bold">
+                        {{ item.buku.jenis_buku.judul }}
+                    </h5>
+
+                    <p>
+                        <strong>Pengarang:</strong>
+                        {{ item.buku.jenis_buku.pengarang }}
+                    </p>
+
+                    <p>
+                        <strong>No Inventaris:</strong>
+                        {{ item.buku.nomor_inventaris }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+
+                        {% if item.status == 'DIPINJAM' %}
+                        <span class="badge bg-warning">
+                            Dipinjam
+                        </span>
+                        {% else %}
+                        <span class="badge bg-success">
+                            Selesai
+                        </span>
+                        {% endif %}
+                    </p>
+
+                    <p>
+                        <strong>Batas Pengembalian:</strong><br>
+                        {{ item.batas_pengembalian|date:"d M Y H:i" }}
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <div class="text-center py-5">
+            <h4>Belum ada riwayat peminjaman</h4>
+        </div>
+        {% endfor %}
+    </div>
+</div> -->
+{% endblock %}

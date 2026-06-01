@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<style>
+    .cover:hover{
+        transform: scale(1.1);
+        transition-duration: 0.3s;
+    }
+    #tombolMore:hover{
+        color: #ee4343;
+    }
+    .hero-kunjungan {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+        padding: 80px 0 50px 0;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    .hero-kunjungan .container {
+        position: relative;
+        z-index: 2;
+    }
+</style>
+  
+<section class="hero-kunjungan" data-aos="fade-down" data-aos-duration="1000">
+    <div class="container">
+        <div class="text-center text-white">
+            <div class="garuda-icon d-flex justify-content-center">
+                <img class="bg-light rounded-circle mb-3" src="{% static 'img/logo-perpus-removebg.png' %}" alt="">
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Katalog Buku Perpustakaan</h1>
+            <p class="lead mb-4">Asrama Mahasiswa Nusantara Surabaya</p>
+        </div>
+    </div>
+</section>
+
+<div class="card-header bg-transparent my-5">
+  <div class="d-flex justify-content-center gap-3">
+      <div class="w-25">
+          <form class="mb-3" method="GET" action="">
+              <div class="input-group">
+                  <input type="text" name="Judul" class="form-control" placeholder="Cari Judul buku..." >
+                  <div class="input-group-append">
+                      <button type="submit" class="btn btn-danger" >Cari</button>
+                  </div>
+              </div>
+          </form>
+
+        </div>
+        {% if user.is_authenticated %}
+        <div>
+            <a class="mt-5" href="{% url 'buku.show.scanner' %}">
+                <button class="btn btn-danger">
+                    Pinjam / kembalikan buku
+                </button>
+            </a>
+                {% if user.username == '22110009' or user.username == '22120020' %}
+                    <a class="mt-5 ml-3" href="{% url 'buku.qr.download_all' %}">
+                        <button class="btn btn-danger">
+                            Download Semua QR
+                        </button>
+                    </a>
+                {% endif %}
+            </div>
+            {% endif %}
+  </div>
+</div>
+
+
+
+<div class="books d-flex justify-content-evenly flex-wrap">
+    {% for book in books %}
+    <div data-aos="zoom-in" data-aos-duration="1000" class="card p-0 shadow-lg mb-3" style="width: 300px;height: auto;border-radius: 20px;">
+        <div style="overflow: hidden;border-top-right-radius: 20px;border-top-left-radius: 20px ;" class="w-100">
+            <img src="{{ book.foto.url }}" alt="cover" class="w-100 cover" style="height: 300px;object-fit:cover ;object-position: top;border-top-right-radius: 20px;border-top-left-radius: 20px ;">
+        </div>
+        <div class="info p-3">
+            <div style="min-height: 150px;width: 100%;">
+                <h3 class="fw-bold">{{ book.judul|truncatechars:50 }}</h3>
+                <p class="text-danger-emphasis fw-bold">{{book.pengarang}}</p>
+                <p>Stok Tersedia : {{book.stok}}</p>
+                
+            </div>
+            <div class="d-flex"> 
+                {% if user.is_authenticated %}
+                {% if user.username == '22110009' or user.username == '22120020' %}
+                <a href="{% url 'buku.qr' book.id %}" class="group/btn flex items-center justify-center rounded-xl bg-gradient-to-r from-red-600 to-red-700 py-2 px-2 font-semibold text-white shadow-md transition-all duration-200 hover:shadow-xl hover:shadow-red-500/50">
+					<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+                    </svg>
+                    <!-- <span>Barcode</span> -->
+				</a>
+                {% endif %}
+                {% endif %}
+
+                <!-- <a href="{% url 'buku.qr' book.id %}" style="width: 150px;" >
+                    <button style="font-size: 12px;" class="btn btn-success p-2">
+                        Download QR
+                    </button>
+                </a> -->
+                <div class="fw-bold mt-2" id="tombolMore" style="text-align: end;color:#a30c0c">
+                    <a class="text-decoration-none" href="{% url 'buku.show' book.id %}">
+                        Selengkapnya &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+<div class="mt-4 mb-5">
+    <nav role="navigation" aria-label="Pagination Navigation">
+        <div class="d-flex align-items-center justify-content-center gap-2">
+            {% if books.has_previous %}
+            <a href="?page={{ books.previous_page_number }}{% if request.GET.Judul %}&Judul={{ request.GET.Judul }}{% endif %}" 
+               class="d-flex align-items-center justify-content-center rounded-circle border border-secondary-subtle bg-white text-secondary"
+               style="width: 40px; height: 40px; transition: all 0.2s; text-decoration: none;"
+               onmouseover="this.style.borderColor='#dc2626'; this.style.backgroundColor='#dc2626'; this.style.color='white'"
+               onmouseout="this.style.borderColor='#6c757d'; this.style.backgroundColor='white'; this.style.color='#6c757d'">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            {% else %}
+            <span class="d-flex align-items-center justify-content-center rounded-circle border border-secondary bg-light text-secondary opacity-50"
+                  style="width: 40px; height: 40px; cursor: not-allowed;">
+                <i class="fas fa-chevron-left"></i>
+            </span>
+            {% endif %}
+
+            {% for num in books.paginator.page_range %}
+                {% if num == books.number %}
+                    <span class="d-flex align-items-center justify-content-center rounded-circle bg-danger text-white fw-semibold shadow"
+                          style="min-width: 40px; height: 40px; padding: 0 8px; background: linear-gradient(135deg, #ee4343, #a30c0c);">
+                        {{ num }}
+                    </span>
+                {% elif num > books.number|add:'-3' and num < books.number|add:'3' %}
+                    <a href="?page={{ num }}{% if request.GET.Judul %}&Judul={{ request.GET.Judul }}{% endif %}" 
+                       class="d-flex align-items-center justify-content-center rounded-circle border border-secondary-subtle bg-white text-secondary"
+                       style="min-width: 40px; height: 40px; padding: 0 8px; transition: all 0.2s; text-decoration: none;"
+                       onmouseover="this.style.borderColor='#dc2626'; this.style.backgroundColor='#fef2f2'; this.style.color='#dc2626'"
+                       onmouseout="this.style.borderColor='#6c757d'; this.style.backgroundColor='white'; this.style.color='#6c757d'">
+                        {{ num }}
+                    </a>
+                {% endif %}
+            {% endfor %}
+            {% if books.has_next %}
+            <a href="?page={{ books.next_page_number }}{% if request.GET.Judul %}&Judul={{ request.GET.Judul }}{% endif %}" 
+               class="d-flex align-items-center justify-content-center rounded-circle border border-secondary-subtle bg-white text-secondary"
+               style="width: 40px; height: 40px; transition: all 0.2s; text-decoration: none;"
+               onmouseover="this.style.borderColor='#dc2626'; this.style.backgroundColor='#dc2626'; this.style.color='white'"
+               onmouseout="this.style.borderColor='#6c757d'; this.style.backgroundColor='white'; this.style.color='#6c757d'">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            {% else %}
+            <span class="d-flex align-items-center justify-content-center rounded-circle border border-secondary bg-light text-secondary opacity-50"
+                  style="width: 40px; height: 40px; cursor: not-allowed;">
+                <i class="fas fa-chevron-right"></i>
+            </span>
+            {% endif %}
+
+        </div>
+    </nav>
+</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+{% endblock %}

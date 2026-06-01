@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .hero-kunjungan {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+        padding: 80px 0 50px 0;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    
+    .hero-kunjungan::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.05)' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: bottom;
+        background-size: cover;
+        opacity: 0.3;
+    }
+    
+    .hero-kunjungan .container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .garuda-icon {
+        font-size: 4rem;
+        color: #ffd700;
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        margin-bottom: 1rem;
+    }
+    .table-container {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        margin-bottom: 40px;
+    }
+    
+    .table-responsive-custom {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+    }
+    
+    .custom-table thead {
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    }
+    
+    .custom-table thead th {
+        padding: 1rem 1.5rem;
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+        border: none;
+        text-align: left;
+    }
+    
+    .custom-table tbody tr {
+        border-bottom: 1px solid #e2e8f0;
+        transition: background 0.2s;
+    }
+    
+    .custom-table tbody tr:hover {
+        background: #fef2f2;
+    }
+    
+    .custom-table tbody td {
+        padding: 1rem 1.5rem;
+        color: #1a202c;
+        vertical-align: middle;
+    }
+    
+    .badge-nasional {
+        background: rgba(225,225,225,0.2);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        display: inline-block;
+    }
+    
+    .avatar-placeholder {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        margin-right: 12px;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background: #f8f9fa;
+        border-radius: 20px;
+    }
+    
+    .empty-icon {
+        font-size: 4rem;
+        color: #cbd5e0;
+        margin-bottom: 1rem;
+    }
+    
+    .pagination-custom {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 30px;
+    }
+    
+    .pagination-custom a, .pagination-custom span {
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #dc2626;
+        background: white;
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s;
+    }
+    
+    .pagination-custom a:hover {
+        background: #dc2626;
+        color: white;
+        border-color: #dc2626;
+    }
+    
+    .pagination-custom .current {
+        background: #dc2626;
+        color: white;
+        border-color: #dc2626;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-kunjungan {
+            padding: 60px 0 30px 0;
+        }
+        
+        .garuda-icon {
+            font-size: 3rem;
+        }
+        
+        .stats-number {
+            font-size: 1.8rem;
+        }
+        
+        .custom-table thead th,
+        .custom-table tbody td {
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+        }
+    }
+</style>
+
+<section class="hero-kunjungan" data-aos="fade-down" data-aos-duration="1000">
+    <div class="container">
+        <div class="text-center text-white">
+            <div class="garuda-icon d-flex justify-content-center">
+                <img class="bg-light rounded-circle mb-3" src="{% static 'img/logo-perpus-removebg.png' %}" alt="">
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Kunjungan Istimewa Perpustakaan</h1>
+            <p class="lead mb-4">Asrama Mahasiswa Nusantara Surabaya</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <span class="badge-nasional">
+                    <i class="fas fa-calendar-alt me-1"></i> {% now "l, d F Y" %}
+                </span>
+                <span class="badge-nasional">
+                    <i class="fas fa-users me-1"></i> Total Kunjungan : {{ total_tamu }}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+{% if user.is_authenticated %}
+{% if user.username == '22120020'%}
+
+<div class="container my-5">
+    <div class="table-container">
+        <div class="table-responsive-custom">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user me-2"></i> Pengunjung</th>
+                        <th><i class="fas fa-user me-2"></i> Jabatan</th>
+                        <th><i class="fas fa-building me-2"></i> Instansi</th>
+                        <th><i class="fas fa-flag-checkered me-2"></i> Tujuan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for org in data %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="{{ org.foto.url }}" class="rounded-circle me-3" width="50" height="50" style="object-fit: cover;">
+                                <div>
+                                    <div class="fw-bold">{{ org.user.first_name }} {{ org.user.last_name }}</div>
+                                    <div class="small text-muted">{{ org.user.email }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark p-2">
+                                <i class="fas fa-university me-1 text-red-600"></i>
+                                {{ org.jabatan|default:"-" }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark p-2">
+                                <i class="fas fa-university me-1 text-red-600"></i>
+                                {{ org.instansi|default:"-" }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark">
+                                <i class="fas fa-book me-1"></i>
+                                {{ org.tujuan|default:"Membaca/Meminjam" }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <i class="fas fa-calendar-times"></i>
+                                </div>
+                                <h4 class="text-gray-600 mb-2">Belum Ada Kunjungan Hari Ini</h4>
+                                <p class="text-muted">Belum ada kunjungan yang tercatat pada hari ini</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endif%}
+{%endif%}
+
+{% endblock %}

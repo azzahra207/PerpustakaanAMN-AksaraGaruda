@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .hero-kunjungan {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+        padding: 80px 0 50px 0;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    .hero-kunjungan .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .table-container {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        margin-bottom: 40px;
+    }
+    
+    .table-responsive-custom {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .custom-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+    }
+    
+    .custom-table thead {
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+    }
+    
+    .custom-table thead th {
+        padding: 1rem 1.5rem;
+        color: white;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85rem;
+        border: none;
+        text-align: left;
+    }
+    
+    .custom-table tbody tr {
+        border-bottom: 1px solid #e2e8f0;
+        transition: background 0.2s;
+    }
+    
+    .custom-table tbody tr:hover {
+        background: #fef2f2;
+    }
+    
+    .custom-table tbody td {
+        padding: 1rem 1.5rem;
+        color: #1a202c;
+        vertical-align: middle;
+    }
+    
+    .badge-nasional {
+        background: rgba(225,225,225,0.2);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        display: inline-block;
+    }
+    
+    .avatar-placeholder {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        margin-right: 12px;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background: #f8f9fa;
+        border-radius: 20px;
+    }
+    
+    .empty-icon {
+        font-size: 4rem;
+        color: #cbd5e0;
+        margin-bottom: 1rem;
+    }
+    
+    .pagination-custom {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 30px;
+    }
+    
+    .pagination-custom a, .pagination-custom span {
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #dc2626;
+        background: white;
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s;
+    }
+    
+    .pagination-custom a:hover {
+        background: #dc2626;
+        color: white;
+        border-color: #dc2626;
+    }
+    
+    .pagination-custom .current {
+        background: #dc2626;
+        color: white;
+        border-color: #dc2626;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-kunjungan {
+            padding: 60px 0 30px 0;
+        }
+        
+        .garuda-icon {
+            font-size: 3rem;
+        }
+        
+        .stats-number {
+            font-size: 1.8rem;
+        }
+        
+        .custom-table thead th,
+        .custom-table tbody td {
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+        }
+    }
+
+</style>
+<section class="hero-kunjungan" data-aos="fade-down" data-aos-duration="1000">
+    <div class="container">
+        <div class="text-center text-white">
+            <div class="garuda-icon d-flex justify-content-center">
+                <img class="bg-light rounded-circle mb-3" src="{% static 'img/logo-perpus-removebg.png' %}" alt="">
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Rekap Absensi Petugas</h1>
+            <p class="lead mb-4">Asrama Mahasiswa Nusantara Surabaya</p>
+        </div>
+    </div>
+</section>
+
+{% if user.is_authenticated %}
+{% if user.username == '22110009' or user.username == '22120020' %}
+<div class="container my-5">
+    <div class="table-container">
+        <div class="table-responsive-custom">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Nama Petugas</th>
+                        <th>Hari</th>
+                        <th>Jam Mulai</th>
+                        <th>Jam Selesai</th>
+                        <th>Jam Masuk</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for data in data_rekap %}
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-placeholder">
+                                    {{ data.petugas.pengunjung.user.first_name|slice:":1" }}{{ data.pengunjung.user.last_name|slice:":1" }}
+                                </div>
+                                <div>
+                                    <div class="fw-bold">{{ data.petugas.pengunjung.user.first_name }} {{ data.pengunjung.user.last_name }}</div>
+                                    <div class="small text-muted">@{{ data.petugas.pengunjung.user.username }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark p-2">
+                                <i class="fas fa-calendar me-1 text-red-600"></i>
+                                {{ data.hari }}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="fw-semibold">
+                                <i class="far fa-clock me-1 text-red-600"></i>
+                                {{ data.mulai|time:"H:i" }} WIB
+                            </span>
+                            <br>
+                        </td>
+                        <td>
+                            <span class="fw-semibold">
+                                <i class="far fa-clock me-1 text-red-600"></i>
+                                {{ data.selesai|time:"H:i" }} WIB
+                            </span>
+                            <br>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark">
+                                <i class="fas fa-clock me-1"></i>
+                                {% if data.jam_masuk %}
+                                    {{ data.jam_masuk|time:"H:i" }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge bg-light text-dark">
+                                <i class="fas fa-star me-1"></i>
+                                {% if data.status == "HADIR" %}
+                                    <span class="badge bg-success">HADIR</span>
+                                {% elif data.status == "TERLAMBAT" %}
+                                    <span class="badge bg-warning">TERLAMBAT</span>
+                                {% elif data.status == "ALPA" %}
+                                    <span class="badge bg-danger">ALPA</span>
+                                {% else %}
+                                    {{ data.status }}
+                                {% endif %}
+                            </span>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <i class="fas fa-calendar-times"></i>
+                                </div>
+                                <h4 class="text-gray-600 mb-2">Belum Ada Kunjungan Hari Ini</h4>
+                                <p class="text-muted">Belum ada kunjungan yang tercatat pada hari ini</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{%endif%}
+{%endif%}
+
+
+{% endblock %}

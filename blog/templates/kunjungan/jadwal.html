@@ -1,0 +1,391 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .hero-kunjungan {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+        padding: 80px 0 50px 0;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    .hero-kunjungan .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .schedule-section {
+        padding: 2rem 0;
+    }
+    
+    .schedule-card {
+        padding:0;
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+    
+    .schedule-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .schedule-header {
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+        padding: 1.5rem;
+        color: white;
+    }
+    
+    .schedule-body {
+        padding: 1.5rem;
+    }
+    
+    .operational-hours {
+        background: #fef2f2;
+        border-radius: 16px;
+        padding: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .operational-hours h4 {
+        color: #dc2626;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    
+    .time-slot {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed #e2e8f0;
+    }
+    
+    .time-slot:last-child {
+        border-bottom: none;
+    }
+    
+    .badge-day {
+        background: #dc2626;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        display: inline-block;
+    }
+    
+    .jadwal-item {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .jadwal-item:hover {
+        background: #fef2f2;
+        transform: translateX(5px);
+    }
+    
+    .petugas-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #dc2626;
+    }
+    
+    .cardus {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+    }
+    
+    .cardus:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .latar-belakang {
+        height: 100px;
+        background: linear-gradient(135deg, #dc2626, #991b1b);
+    }
+    
+    .caption {
+        padding: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+    
+    .profile-image {
+        margin-top: -60px;
+        margin-bottom: 1rem;
+    }
+    
+    .profile-image img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        list-style: none;
+        margin-top: 1rem;
+    }
+    
+    .icon {
+        width: 35px;
+        height: 35px;
+        background: #f0f0f0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        background-color: #991b1b;
+    }
+    
+    .icon:hover {
+        background: #dc2626;
+        transform: translateY(-3px);
+    }
+    
+    .icon img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .tooltip {
+        position: absolute;
+        background: #333;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 0.7rem;
+        margin-top: -30px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+    }
+    
+    .icon:hover .tooltip {
+        opacity: 1;
+    }
+</style>
+<section class="hero-kunjungan" data-aos="fade-down" data-aos-duration="1000">
+    <div class="container">
+        <div class="text-center text-white">
+            <div class="garuda-icon d-flex justify-content-center">
+                <img class="bg-light rounded-circle mb-3" src="{% static 'img/logo-perpus-removebg.png' %}" alt="">
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Jadwal Kunjung Perpustakaan</h1>
+            <p class="lead mb-4">Asrama Mahasiswa Nusantara Surabaya</p>
+        </div>
+    </div>
+</section>
+
+<section class="schedule-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="schedule-card mb-4">
+                    <div class="schedule-header w-100">
+                        <h4 class="mb-0">
+                            <i class="fas fa-clock me-2"></i> Jam Operasional
+                        </h4>
+                    </div>
+                    <div class="schedule-body">
+                        <div class="operational-hours">
+                            <div class="time-slot">
+                                <span class="fw-bold">Senin - Jumat (Weekdays)</span>
+                                <span class="text-danger fw-bold">09.00 - 21.00 WIB</span>
+                            </div>
+                            <div class="time-slot">
+                                <span class="fw-bold">Sabtu - Minggu (Weekend)</span>
+                                <span class="text-danger fw-bold">09.30 - 21.00 WIB</span>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mb-3">
+                            <span class="badge-day">
+                                <i class="fas fa-sun me-1"></i> {{ hari_ini }}
+                            </span>
+                            <span class="ms-2">Jadwal Petugas Hari Ini</span>
+                        </h5>
+                        
+                        {% for j in jadwalHariIni %}
+                        <div class="jadwal-item d-flex align-items-center gap-3">
+                            <div>
+                                {% if j.petugas.pengunjung.foto %}
+                                <img src="{{ j.petugas.pengunjung.foto.url }}" 
+                                     class="petugas-avatar"
+                                     alt="{{ j.petugas.pengunjung.user.first_name }}">
+                                {% else %}
+                                <div class="petugas-avatar bg-secondary d-flex align-items-center justify-content-center text-white">
+                                    <i class="fas fa-user fa-2x"></i>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex-grow-1">
+                                <h6 class="mb-0 fw-bold">
+                                    {{ j.petugas.pengunjung.user.first_name }} {{ j.petugas.pengunjung.user.last_name }}
+                                </h6>
+                                <small class="text-muted">{{ j.petugas.jabatan }}</small>
+                            </div>
+                            <div class="text-end">
+                                <span class="btn btn-danger mb-1 w-auto rounded-3">
+                                    <a href="https://wa.me/0818887300" target="_blank" class="d-flex">
+                                        <img style="height:20px;width:auto" src="{% static 'img/Phone.png' %}" alt=""> 
+                                        <p class="text-light fw-bold h-auto">
+                                            Hubungi
+                                        </p>
+                                    </a>
+                                </span>
+                                <span class="badge bg-success">
+                                    <i class="fas fa-play-circle me-1"></i> {{ j.mulai|time:"H:i" }}
+                                </span>
+                                <span class="text-muted mx-1">-</span>
+                                <span class="badge bg-danger">
+                                    <i class="fas fa-stop-circle me-1"></i> {{ j.selesai|time:"H:i" }}
+                                </span>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="alert alert-warning text-center">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Tidak ada jadwal petugas untuk hari ini
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="cardus">
+                    <div class="latar-belakang" style="height: 60px;"></div>
+                    <div class="caption">
+                        <i class="fas fa-info-circle fa-3x text-danger mb-2"></i>
+                        <h5>Informasi</h5>
+                        <p class="small text-muted">
+                            Untuk informasi lebih lanjut mengenai jadwal atau layanan perpustakaan, 
+                            silakan menghubungi petugas yang bertugas.
+                        </p>
+                    </div>
+                </div>
+                <div class="cardus">
+                    <div class="latar-belakang rounded-3 pengelola"></div>
+                    <div class="caption">
+                        <div class="profile-image justify-content-center">
+                            <img class="mx-auto" src="{% static 'img/manager-pembinaan.jpg' %}" alt="Profile Photo"> 
+                        </div>
+                        <div class="identity">
+                            <h2 style="font-size:1.2em; font-weight:bold;">ROFII, S.Ds.</h2>
+                            <p class="fw-bold text-danger" style="font-size:0.85em">Manajer Pembinaan dan Kompetensi Umum</p>
+                            <ul class="wrapper mb-0" style="padding: 0px;">
+                                <li class="icon facebook">
+                                    <span class="tooltip">AMN</span>
+                                    <img style="height:20px;width:auto" src="{% static 'img/campus.png' %}" alt="">
+                                </li>
+                                <li class="icon twitter">
+                                    <span class="tooltip">Lokasi</span>
+                                    <img style="height:20px;width:auto" src="{% static 'img/lokasi.png' %}" alt="">
+                                </li>
+                                <li class="icon instagram">
+                                    <span class="tooltip">Telepon</span>
+                                    <a href="https://wa.me/0818887300" target="_blank">
+                                        <img style="height:20px;width:auto" src="{% static 'img/Phone.png' %}" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                            <hr class="my-3">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="cardus">
+                    <div class="latar-belakang rounded-3 pengelola"></div>
+                    <div class="caption">
+                        <div class="profile-image justify-content-center">
+                            <img class="mx-auto" src="{% static 'img/admin-perpus.jpg' %}" alt="Profile Photo"> 
+                        </div>
+                        <div class="identity">
+                            <h2 style="font-size:1.2em; font-weight:bold;">DANAR ADRIAN, S.Ak</h2>
+                            <p class="fw-bold text-danger" style="font-size:0.85em">Admin Perpustakaan</p>
+                            <ul class="wrapper mb-0" style="padding: 0px;">
+                                <li class="icon facebook">
+                                    <span class="tooltip">AMN</span>
+                                    <img style="height:20px;width:auto" src="{% static 'img/campus.png' %}" alt="">
+                                </li>
+                                <li class="icon twitter">
+                                    <span class="tooltip">Lokasi</span>
+                                    <img style="height:20px;width:auto" src="{% static 'img/lokasi.png' %}" alt="">
+                                </li>
+                                <li class="icon instagram">
+                                    <span class="tooltip">Telepon</span>
+                                    <a href="https://wa.me/087788039758" target="_blank">
+                                        <img style="height:20px;width:auto" src="{% static 'img/Phone.png' %}" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                            <hr class="my-3">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+            <div class="schedule-card">
+                    <div class="schedule-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-table-list me-2"></i> Semua Jadwal Petugas
+                        </h5>
+                    </div>
+                    <div class="schedule-body">
+                        <div class="row g-3">
+                            {% for j in jadwal %}
+                            <div class="col-md-6">
+                                <div class="jadwal-item d-flex align-items-center gap-2">
+                                    <div class="flex-shrink-0">
+                                        {% if j.petugas.pengunjung.foto %}
+                                        <img src="{{ j.petugas.pengunjung.foto.url }}" 
+                                             style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                        {% else %}
+                                        <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center" 
+                                             style="width: 40px; height: 40px;">
+                                            <i class="fas fa-user text-white"></i>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <strong class="small">{{ j.get_hari_display }}</strong>
+                                        <p class="mb-0 small">
+                                            {{ j.petugas.pengunjung.user.first_name }} {{ j.petugas.pengunjung.user.last_name }}
+                                        </p>
+                                        
+                                        <small class="text-muted">{{ j.mulai|time:"H:i" }} - {{ j.selesai|time:"H:i" }} WIB</small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

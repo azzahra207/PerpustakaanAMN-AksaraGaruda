@@ -1,0 +1,850 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<!-- AOS Animation CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<style>  
+        .allcal {
+          font-family: sans-serif;
+          padding: 20px;
+          display: flex;
+          justify-content: center;
+        }
+    
+        .calendar {
+          width: 300px;
+          background: #fdfafa;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+    
+        .calendar-header {
+          background: #003d1f;
+          color: white;
+          text-align: center;
+          padding: 10px;
+          font-weight: bold;
+        }
+    
+        .calendar-days, .calendar-dates {
+          display: grid;
+          grid-template-columns: repeat(7, 1fr);
+          text-align: center;
+          padding: 10px;
+        }
+    
+        .calendar-days {
+          background: #f1eded;
+          font-weight: bold;
+        }
+    
+        .calendar-dates div {
+          padding: 10px 0;
+        }
+    
+        .today {
+          background-color: #004d26;
+          color: white;
+          font-weight: bold;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto;
+        }
+
+        .carousel-item {
+            text-align: center;
+        }
+        
+        .card {
+            border: none;
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slide-text {
+            position: absolute;
+            width:80%;
+            top: 50%;
+            left: 10%;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+        
+        .slide-text h2{
+            font-weight:bolder;
+        }
+        
+        .page-item.active .page-link {
+            background-color: #a30c0c !important;
+            border-color: #a30c0c !important;
+            color: #fff !important;
+        }
+
+        .page-link {
+            color: #a30c0c !important;
+        }
+
+        .page-link:hover {
+            background-color: #25D366 !important;
+            border-color: #25D366 !important;
+        }
+        
+        
+
+        @keyframes scroll-news {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        @media only screen and (min-width:768px){
+            #konten_bawah{
+                width:25%;
+            }
+            #konten_atas {
+                width:70%;
+            }
+        }
+        
+        @media only screen and (max-width:767px){
+            #konten_bawah{
+                min-width:100%;
+                order:1; 
+            }
+            .kartu-berita{
+                margin: auto
+            }
+            #konten_atas {
+                width:100%;
+                order:2
+            }
+        }
+        
+        .place-tgl{
+            background: linear-gradient(to bottom right, #a30c0c, #25D366);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tanggal{
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .bulan, .tahun{
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .kategori-berita:hover{
+            background-color: #a5d2b790 !important;
+            border: 0.5px solid #3fc575;
+        }
+        
+        .kartu-berita{
+            box-shadow: 20px 20px 10px rgba(0, 0, 0,1);
+            border-radius: 10px;
+        }
+        
+        /* Perbaikan untuk carousel */
+        .carousel {
+            position: relative;
+        }
+        
+        .carousel-inner {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .carousel-item {
+            position: relative;
+            display: none;
+            float: left;
+            width: 100%;
+            transition: transform 0.6s ease;
+        }
+        
+        .carousel-item.active {
+            display: block;
+        }
+        
+        .carousel-control-prev,
+        .carousel-control-next {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 15%;
+            padding: 0;
+            color: #fff;
+            text-align: center;
+            background: none;
+            border: 0;
+            opacity: 0.5;
+            transition: opacity 0.15s ease;
+        }
+        
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            opacity: 0.9;
+        }
+        
+        .books {
+            display: flex;
+            justify-content: start;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem;
+        }
+        
+        .books .card {
+            min-width: 250px;
+            height: auto;
+        }
+        
+        .books img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-ticker {
+    width: 100%;
+    background-color: #a30c0c;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.ticker-track {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.ticker-text {
+    white-space: nowrap;
+    display: inline-block;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 50px;
+    padding: 0 20px;
+    animation: tickerScroll 25s linear infinite;
+}
+
+.ticker-text i {
+    color: #ffd700;
+    margin-right: 8px;
+}
+
+.separator {
+    margin: 0 20px;
+    color: rgba(255,255,255,0.5);
+}
+
+@keyframes tickerScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.news-ticker:hover .ticker-text {
+    animation-play-state: paused;
+}
+
+
+
+.cardus {
+            /* position: relative; */
+            width: 300px;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .latar-belakang {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .latar-belakang::after {
+            content: '';
+            position: absolute;
+            top: 100px;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            /* background-color: red; */
+        }
+
+        .profile-image {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+            background: #efef;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .identity {
+            left: 0;
+            bottom:0;
+            width: 100%;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .identity h2 {
+            margin: 0;
+            font-size: 1em;
+        }
+        .identity p {
+            margin: 5px 0 0;
+            font-size: 0.7em;
+            color: rgb(128, 0, 0);
+        }
+        .identity div{
+          height: 250px;
+          color:#fff;
+        }
+        p{
+          line-height: 1;
+        }
+        q{
+          line-height:1.2;
+          display: block;
+        }
+
+
+        .wrapper {
+  display: inline-flex;
+  list-style: none;
+  width: 100%;
+  padding-top: 40px;
+  font-family: "Poppins", sans-serif;
+  justify-content: center;
+}
+
+.wrapper .icon {
+  position: relative;
+  background:none;
+  border-radius: 50%;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background: #000;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #000;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+/* .facebook, .instagram,.twitter { */
+.icon{
+  background: #a30c0c !important;
+}
+
+.wrapper .icon:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.wrapper .icon:hover span,
+.wrapper .icon:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper .facebook:hover,
+.wrapper .facebook:hover .tooltip,
+.wrapper .facebook:hover .tooltip::before {
+  background: #f14343 !important;
+  color: #fff;
+}
+
+.wrapper .twitter:hover,
+.wrapper .twitter:hover .tooltip,
+.wrapper .twitter:hover .tooltip::before {
+  background: #f14343 !important;
+  color: #fff;
+}
+
+.wrapper .instagram:hover,
+.wrapper .instagram:hover .tooltip,
+.wrapper .instagram:hover .tooltip::before {
+  background: #f14343 !important;
+  color: #fff;
+}
+
+
+.page-item.active .page-link {
+    background-color: #a30c0c !important; 
+    border-color: #a30c0c !important;
+    color: #fff !important;
+}
+
+.page-link {
+    color: #a30c0c !important;
+}
+
+.page-link:hover {
+    background-color: #dd2d2d !important;
+    border-color: #25D366 !important;
+}
+
+.direktur{
+    background-image: url("{% static 'img/direktur.png' %}");
+}
+.pengelola{
+    background-image: url("{% static 'img/manager-pembinaan.jpg' %}");
+}
+.admin{
+    background-image: url("{% static 'img/admin-perpus.jpg' %}");
+}
+.container-struktur > div{
+    margin:0px !important;
+}
+    </style>
+<audio autoplay loop id="murottal">
+      <source src="{% static 'img/mars.mp3' %}" type="audio/mpeg">
+    </audio>
+<div id="beritaCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="card" style="height: 100vh;padding: 0px;">
+                <img style="filter:brightness(50%);object-position:top" src="{% static 'img/utama.jpg' %}" class="news-image w-100" alt="Perpustakaan">
+                <div class="slide-text">
+                    <h2 class="card-title fw-bold" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.5)">Perpustakaan Aksara Garuda</h2>
+                    <h4 class="fw-bold text-warning" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5)">Saatnya belajar, membaca, dan berkembang demi masa depan anak Bangsa Indonesia</h4>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card" style="height: 100vh;padding: 0px;">
+                <img style="filter:brightness(50%);object-position:top" src="{% static 'img/landing.jpg' %}" class="news-image w-100" alt="Perpustakaan">
+                <div class="slide-text">
+                    <h2 class="card-title fw-bold" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.5)">Ruang Ternyaman Untuk Belajar</h2>
+                    <h4 class="fw-bold text-warning" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5)">Didesain untuk mendukung fokus belajar, diskusi, dan eksplorasi ilmu tanpa gangguan</h4>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card" style="height: 100vh;padding: 0px;">
+                <img style="filter:brightness(50%);object-position:top" src="{% static 'img/komputer.jpg' %}" class="news-image w-100" alt="Perpustakaan">
+                <div class="slide-text">
+                    <h2 class="card-title fw-bold" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.5)">Fasilitas Komputer Siap Pakai</h2>
+                    <h4 class="fw-bold text-warning" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5)">Akses komputer modern untuk mendukung literasi digital dan kebutuhan pembelajaran berbasis teknologi</h4>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="card" style="height: 100vh;padding: 0px;">
+                <img style="filter:brightness(50%);object-position:top" src="{% static 'img/rak.jpg' %}" class="news-image w-100" alt="Perpustakaan">
+                <div class="slide-text">
+                    <h2 class="card-title fw-bold" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.5)">Puluhan Ribu Buku Tersedia</h2>
+                    <h4 class="fw-bold text-warning" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5)">Koleksi buku lengkap dari berbagai bidang untuk menunjang pengetahuan dan minat baca pengunjung</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#beritaCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#beritaCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<div class="news-ticker">
+    <div class="ticker-track">
+        <div class="ticker-text">
+            <i class="fas fa-volume-up me-2"></i>
+            Selamat datang di Perpustakaan Aksara Garuda
+            <span class="separator">|</span>
+            Nikmati fasilitas komputer siap pakai
+            <span class="separator">|</span>
+            Ribuan buku serba ada untuk menambah wawasanmu
+            <span class="separator">|</span>
+            Selamat membaca dan belajar bersama kami
+            <span class="separator">|</span>
+            Baca, Pinjam, Kembalikan - Mudah dan Cepat!
+        </div>
+    </div>
+</div>
+<section class="container my-5">
+     <h1 data-aos="flip-left" data-aos-duration="1000" class="mt-5 text-center fw-bold text-danger-emphasis">Buku-Buku Tersedia</h1>
+    <img data-aos="flip-left" data-aos-duration="1000" style="max-width: 75%" class="mx-auto d-block mb-4"  src="{% static 'img/hr.png' %}" alt="">
+    <div class="books">
+        {% for book in books %}
+        <div class="card shadow-lg" data-aos="zoom-in" data-aos-duration="1000">
+            <div style="height: 97%;">
+            <img src="{{ book.foto.url }}" alt="cover">
+            <div class="card-body">
+                <h3 class="card-title h5">{{ book.judul }}</h3>
+                <p class="card-text">Stok Tersedia : {{ book.stok }}</p>
+            </div>
+            </div>
+            <div id="tombolMore" style="text-align: end;">
+                <a href="{% url 'buku.show' book.id %}">Selengkapnya &rarr;</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center">Belum ada buku tersedia</p>
+        {% endfor %}
+    </div>
+    <div style="text-align: center;">
+        <a href="{% url 'buku.index' %}" class="tombol-hijau btn btn-danger my-3">Lihat Semua Daftar Buku</a>
+    </div>
+</section>
+
+<section id="sejarah" class="container my-5">
+    <h1 data-aos="flip-left" data-aos-duration="1000" class="mt-5 text-center fw-bold text-danger-emphasis">Sejarah Aksara Garuda</h1>
+    <img data-aos="flip-left" data-aos-duration="1000" style="max-width: 75%" class="mx-auto d-block mb-4"  src="{% static 'img/hr.png' %}" alt="">
+    <p class="text-justify" data-aos="fade-up" data-aos-duration="1000">
+        <strong class="text-danger-emphasis">Perpustakaan Aksara Garuda</strong> merupakan fasilitas esensial yang pendiriannya tidak terlepas dari sejarah berdirinya Asrama Mahasiswa Nusantara (AMN) Surabaya. Diresmikan bersamaan dengan pembukaan kompleks AMN pada bulan November 2022, perpustakaan ini dibangun dengan visi utama sebagai pusat literasi dan ruang kolaborasi akademik bagi mahasiswa dari berbagai provinsi di Indonesia. Sejak awal pembangunannya, fasilitas ini dirancang secara khusus untuk tidak sekadar menjadi tempat penyimpanan literatur perkuliahan, melainkan juga sebagai episentrum interaksi dan pertukaran gagasan lintas budaya. Kehadiran perpustakaan ini secara langsung ditujukan untuk mendukung program pembinaan karakter, peningkatan kapasitas intelektual, serta penanaman wawasan kebangsaan bagi para mahasiswa yang bernaung di AMN Surabaya.    </p>
+    <p class="text-justify" data-aos="fade-up" data-aos-duration="1000">
+        <strong class="text-danger-emphasis">AKSARA</strong>
+        secara harfiah berarti "huruf" atau "tulisan". Dalam Bahasa Sanskerta, kata aksara berarti tulisan yang tak termusnahkan. Kata ini mewakili ilmu pengetahuan, literasi, dan keabadian. Kata "AKSARA" adalah simbol dari ide dan pengetahuan yang dituangkan dalam tulisan.
+    </p>
+    <p class="text-justify" data-aos="fade-up" data-aos-duration="1000">
+       <strong class="text-danger-emphasis">GARUDA</strong>
+       mengacu pada simbol nasional dan mitologi. Garuda adalah kendaraan dewa dalam cerita-cerita Hindu, sering dikaitkan dengan kekuatan dan kebijaksanaan. Dalam logo ini, Garuda membawa pesan tentang kekuatan budaya yang tangguh dan daya tahan. Lambang "GARUDA" berfungsi sebagai drishti (fokus/pandangan) bagi Perpustakaan Asrama Mahasiswa Nusantara, yang membawa semangat: Bersama kita mewarisi sejarah, menyelami budaya, dan menyatukan bangsa dalam Aksara Garuda.
+   </p>
+   <div style="text-align: center;">
+        <a href="{% url 'about.me' %}" class="tombol-hijau btn btn-danger my-3">Tentang Kami</a>
+    </div>
+</section>
+
+<section id="struktur">
+    <h1 data-aos="flip-left" data-aos-duration="1000" class="mt-5 text-center fw-bold text-danger-emphasis">Pengelola Perpustakaan</h1>
+    <img data-aos="flip-left" data-aos-duration="1000" style="max-width: 75%" class="mx-auto d-block mb-4"  src="{% static 'img/hr.png' %}" alt="">
+
+    <div class="container-struktur d-flex justify-content-center position-relative gap-3 mb-5 mt-3 flex-wrap">
+        <div class="cardus card mx-auto" style="width:350px" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom" >
+        <div class="latar-belakang rounded-3 direktur bg-secondary-subtle" ></div>
+        <div class="caption">
+        <div class="profile-image bg-secondary-subtle">
+            <img src="{% static 'img/direktur.png' %}" alt="Profile Photo"> 
+        </div>
+        <div class="identity">
+            <h2 style="font-size:1em">Dhian Satria Yudha Kartika, S.Kom., M.Kom.</h2>
+            <p class="fw-bold" style="font-size:0.7em">Direktur Eksekutif</p>
+            <!-- <p>Mengabdi sejak Th.{!!$km->tahun!!}</p>
+            <p class="mb-2">Alamat : {!!$km->alamat!!}</p>
+            <q style="font-size: 0.6em">{!!$km->Motto!!}</q>
+                   From Uiverse.io by david-mohseni  -->
+    <ul class="wrapper mb-0" style="padding: 0px;">
+        <li class="icon facebook">
+          <span class="tooltip">AMN</span>
+            <img style="height:20px;width:auto" src="{% static 'img/campus.png' %}" alt="">
+            <path
+              d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+            ></path>
+          </svg>
+        </li>
+        <li class="icon twitter">
+          <span class="tooltip">Bumi</span>
+            <img style="height:20px;width:auto" src="{% static 'img/lokasi.png' %}" alt="">
+
+            <path
+              d="M42,12.429c-1.323,0.586-2.746,0.977-4.247,1.162c1.526-0.906,2.7-2.351,3.251-4.058c-1.428,0.837-3.01,1.452-4.693,1.776C34.967,9.884,33.05,9,30.926,9c-4.08,0-7.387,3.278-7.387,7.32c0,0.572,0.067,1.129,0.193,1.67c-6.138-0.308-11.582-3.226-15.224-7.654c-0.64,1.082-1,2.349-1,3.686c0,2.541,1.301,4.778,3.285,6.096c-1.211-0.037-2.351-0.374-3.349-0.914c0,0.022,0,0.055,0,0.086c0,3.551,2.547,6.508,5.923,7.181c-0.617,0.169-1.269,0.263-1.941,0.263c-0.477,0-0.942-0.054-1.392-0.135c0.94,2.902,3.667,5.023,6.898,5.086c-2.528,1.96-5.712,3.134-9.174,3.134c-0.598,0-1.183-0.034-1.761-0.104C9.268,36.786,13.152,38,17.321,38c13.585,0,21.017-11.156,21.017-20.834c0-0.317-0.01-0.633-0.025-0.945C39.763,15.197,41.013,13.905,42,12.429"
+            ></path>
+          </svg>
+        </li>
+        <li class="icon instagram">
+          <span class="tooltip">Telepon</span>
+          <a href="https://wa.me/0818887300">
+            <img style="height:20px;width:auto" src="{% static 'img/Phone.png' %}" alt=""></a>
+            <path
+              d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"
+            ></path>
+          </svg>
+        </li>
+      </ul>
+
+    </div>
+    </div>
+    </div>
+
+    <div class="cardus card mx-auto" style="width:350px" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom" >
+        <div class="latar-belakang rounded-3 pengelola" ></div>
+        <div class="caption">
+        <div class="profile-image">
+            <img src="{% static 'img/manager-pembinaan.jpg' %}" alt="Profile Photo"> 
+        </div>
+        <div class="identity">
+            <h2 style="font-size:1em">ROFII, S.Ds.</h2>
+            <p class="fw-bold" style="font-size:0.7em">Manajer Pembinaan dan Kompetensi Umum</p>
+            <!-- <p>Mengabdi sejak Th.{!!$km->tahun!!}</p>
+            <p class="mb-2">Alamat : {!!$km->alamat!!}</p>
+            <q style="font-size: 0.6em">{!!$km->Motto!!}</q>
+                   From Uiverse.io by david-mohseni  -->
+    <ul class="wrapper mb-0" style="padding: 0px;">
+        <li class="icon facebook">
+          <span class="tooltip">AMN</span>
+            <img style="height:20px;width:auto" src="{% static 'img/campus.png' %}" alt="">
+            <path
+              d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+            ></path>
+          </svg>
+        </li>
+        <li class="icon twitter">
+          <span class="tooltip">Bumi</span>
+            <img style="height:20px;width:auto" src="{% static 'img/lokasi.png' %}" alt="">
+
+            <path
+              d="M42,12.429c-1.323,0.586-2.746,0.977-4.247,1.162c1.526-0.906,2.7-2.351,3.251-4.058c-1.428,0.837-3.01,1.452-4.693,1.776C34.967,9.884,33.05,9,30.926,9c-4.08,0-7.387,3.278-7.387,7.32c0,0.572,0.067,1.129,0.193,1.67c-6.138-0.308-11.582-3.226-15.224-7.654c-0.64,1.082-1,2.349-1,3.686c0,2.541,1.301,4.778,3.285,6.096c-1.211-0.037-2.351-0.374-3.349-0.914c0,0.022,0,0.055,0,0.086c0,3.551,2.547,6.508,5.923,7.181c-0.617,0.169-1.269,0.263-1.941,0.263c-0.477,0-0.942-0.054-1.392-0.135c0.94,2.902,3.667,5.023,6.898,5.086c-2.528,1.96-5.712,3.134-9.174,3.134c-0.598,0-1.183-0.034-1.761-0.104C9.268,36.786,13.152,38,17.321,38c13.585,0,21.017-11.156,21.017-20.834c0-0.317-0.01-0.633-0.025-0.945C39.763,15.197,41.013,13.905,42,12.429"
+            ></path>
+          </svg>
+        </li>
+        <li class="icon instagram">
+          <span class="tooltip">Telepon</span>
+          <a href="https://wa.me/0818887300">
+            <img style="height:20px;width:auto" src="{% static 'img/Phone.png' %}" alt=""></a>
+            <path
+              d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"
+            ></path>
+          </svg>
+        </li>
+      </ul>
+
+    </div>
+    </div>
+    </div>
+
+     <div class="cardus card mx-auto" style="width:350px" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom" >
+        <div class="latar-belakang rounded-3 admin" ></div>
+        <div class="caption">
+        <div class="profile-image">
+            <img src="{% static 'img/admin-perpus.jpg' %}" alt="Profile Photo"> 
+        </div>
+        <div class="identity">
+            <h2 style="font-size:1em">DANAR ADRIAN, S.Ak.</h2>
+            <p class="fw-bold" style="font-size:0.7em">Administrasi Perpustakaan</p>
+            <!-- <p>Mengabdi sejak Th.{!!$km->tahun!!}</p>
+            <p class="mb-2">Alamat : {!!$km->alamat!!}</p>
+            <q style="font-size: 0.6em">{!!$km->Motto!!}</q>
+                   From Uiverse.io by david-mohseni  -->
+    <ul class="wrapper mb-0" style="padding: 0px;">
+        <li class="icon facebook">
+          <span class="tooltip">AMN</span>
+            <img style="height:20px;width:auto" src="{% static 'img/campus.png' %}" alt="">
+            <path
+              d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+            ></path>
+          </svg>
+        </li>
+        <li class="icon twitter">
+          <span class="tooltip">Bumi</span>
+            <img style="height:20px;width:auto" src="{% static 'img/lokasi.png' %}" alt="">
+
+            <path
+              d="M42,12.429c-1.323,0.586-2.746,0.977-4.247,1.162c1.526-0.906,2.7-2.351,3.251-4.058c-1.428,0.837-3.01,1.452-4.693,1.776C34.967,9.884,33.05,9,30.926,9c-4.08,0-7.387,3.278-7.387,7.32c0,0.572,0.067,1.129,0.193,1.67c-6.138-0.308-11.582-3.226-15.224-7.654c-0.64,1.082-1,2.349-1,3.686c0,2.541,1.301,4.778,3.285,6.096c-1.211-0.037-2.351-0.374-3.349-0.914c0,0.022,0,0.055,0,0.086c0,3.551,2.547,6.508,5.923,7.181c-0.617,0.169-1.269,0.263-1.941,0.263c-0.477,0-0.942-0.054-1.392-0.135c0.94,2.902,3.667,5.023,6.898,5.086c-2.528,1.96-5.712,3.134-9.174,3.134c-0.598,0-1.183-0.034-1.761-0.104C9.268,36.786,13.152,38,17.321,38c13.585,0,21.017-11.156,21.017-20.834c0-0.317-0.01-0.633-0.025-0.945C39.763,15.197,41.013,13.905,42,12.429"
+            ></path>
+          </svg>
+        </li>
+        <li class="icon instagram">
+          <span class="tooltip">Telepon</span>
+          <a href="https://wa.me/087788039758">
+            <img style="height:20px;width:auto" src="{% static 'img/Phone.png' %}" alt=""></a>
+            <path
+              d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"
+            ></path>
+          </svg>
+        </li>
+      </ul>
+
+    </div>
+    </div>
+    </div>
+
+
+
+
+{% for p in petugas %}
+  <div class="cardus card" style="min-width:350px" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom" >
+    <div class="latar-belakang rounded-3" style="background-image: url('{{ p.pengunjung.foto.url }}');"></div>
+    <div class="caption">
+    <div class="profile-image">
+        <img src="{{ p.pengunjung.foto.url }}" alt="Profile Photo"> 
+    </div>
+    <div class="identity">
+        <h2 style="font-size:1em">{{p.pengunjung.user.first_name}} {{p.pengunjung.user.last_name}}</h2>
+        <p class="fw-bold" style="font-size:0.7em">{{p.jabatan}}</p>
+        <!-- <p>Mengabdi sejak Th.{!!$km->tahun!!}</p>
+        <p class="mb-2">Alamat : {!!$km->alamat!!}</p>
+        <q style="font-size: 0.6em">{!!$km->Motto!!}</q>
+               From Uiverse.io by david-mohseni  -->
+<ul class="wrapper mb-0" style="padding: 0px;">
+    <li class="icon facebook">
+      <span class="tooltip">{{p.pengunjung.instansi}}</span>
+        <img style="height:20px;width:auto" src="{% static 'img/campus.png' %}" alt="">
+        <path
+          d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+        ></path>
+      </svg>
+    </li>
+    <li class="icon twitter">
+      <span class="tooltip">{{p.pengunjung.alamat}}</span>
+        <img style="height:20px;width:auto" src="{% static 'img/lokasi.png' %}" alt="">
+
+        <path
+          d="M42,12.429c-1.323,0.586-2.746,0.977-4.247,1.162c1.526-0.906,2.7-2.351,3.251-4.058c-1.428,0.837-3.01,1.452-4.693,1.776C34.967,9.884,33.05,9,30.926,9c-4.08,0-7.387,3.278-7.387,7.32c0,0.572,0.067,1.129,0.193,1.67c-6.138-0.308-11.582-3.226-15.224-7.654c-0.64,1.082-1,2.349-1,3.686c0,2.541,1.301,4.778,3.285,6.096c-1.211-0.037-2.351-0.374-3.349-0.914c0,0.022,0,0.055,0,0.086c0,3.551,2.547,6.508,5.923,7.181c-0.617,0.169-1.269,0.263-1.941,0.263c-0.477,0-0.942-0.054-1.392-0.135c0.94,2.902,3.667,5.023,6.898,5.086c-2.528,1.96-5.712,3.134-9.174,3.134c-0.598,0-1.183-0.034-1.761-0.104C9.268,36.786,13.152,38,17.321,38c13.585,0,21.017-11.156,21.017-20.834c0-0.317-0.01-0.633-0.025-0.945C39.763,15.197,41.013,13.905,42,12.429"
+        ></path>
+      </svg>
+    </li>
+    <li class="icon instagram">
+      <span class="tooltip">Telepon</span>
+      <a href="https://wa.me/{{p.pengunjung.no_hp}}">
+        <img style="height:20px;width:auto" src="{% static 'img/Phone.png' %}" alt=""></a>
+        <path
+          d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"
+        ></path>
+      </svg>
+    </li>
+  </ul>
+
+</div>
+</div>
+</div>
+{% endfor %}
+
+</div>
+<div style="text-align: center;">
+        <a href="{% url 'struktur' %}" class="tombol-hijau btn btn-danger mt-3 mb-5">Struktur Pengelola Perpustakaan</a>
+    </div>
+</section>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    AOS.init();
+    
+    const monthNames = [
+        "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+        "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+    ];
+
+    const now = new Date();
+    const currentDay = now.getDate();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    const calendarHeader = document.getElementById('calendar-header');
+    if (calendarHeader) {
+        calendarHeader.innerText = `${monthNames[currentMonth]} ${currentYear}`;
+    }
+
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    const jsToCustomIndex = [0,1,2,3,4,5,6];
+    const startIndex = jsToCustomIndex[firstDay.getDay()];
+
+    let datesHTML = "";
+    for (let i = 0; i < startIndex; i++) {
+        datesHTML += `<div></div>`;
+    }
+
+    for (let d = 1; d <= lastDate; d++) {
+        if (d === currentDay) {
+            datesHTML += `<div><div class="today">${d}</div></div>`;
+        } else {
+            datesHTML += `<div>${d}</div>`;
+        }
+    }
+
+    const calendarDates = document.getElementById('calendar-dates');
+    if (calendarDates) {
+        calendarDates.innerHTML = datesHTML;
+    }
+
+    
+
+</script>
+
+<!-- Hapus script slides yang error, ganti dengan yang ini jika perlu auto slide -->
+<script>
+    // Auto slide carousel setiap 5 detik
+    const myCarousel = document.getElementById('beritaCarousel');
+    if (myCarousel) {
+        const carousel = new bootstrap.Carousel(myCarousel, {
+            interval: 5000,
+            wrap: true,
+            ride: 'carousel'
+        });
+    }
+</script>
+
+{% endblock %}

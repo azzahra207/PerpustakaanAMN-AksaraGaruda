@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+    .hero-kunjungan {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+        padding: 80px 0 50px 0;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    .hero-kunjungan .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .fade-transition {
+            transition: opacity 0.4s ease-in-out;
+        }
+
+</style>
+<section data-aos="fade-down" data-aos-duration="1000" class="hero-kunjungan">
+    <div class="container">
+        <div class="text-center text-white">
+            <div class="garuda-icon d-flex justify-content-center">
+                <img class="bg-light rounded-circle mb-3" src="{% static 'img/logo-perpus-removebg.png' %}" alt="">
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Galeri Kegiatan Perpustakaan</h1>
+            <p class="lead mb-4">Asrama Mahasiswa Nusantara Surabaya</p>
+        </div>
+    </div>
+</section>
+<section data-aos="fade-up" data-aos-duration="1000" class="bg-slate-50 flex items-center justify-center min-h-screen p-6">
+    <div class="w-[80vw] max-w-7xl min-h-[80vh] bg-white rounded-[28px] p-4 shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+
+        <div class="relative group w-full h-[80vh] rounded-[20px] overflow-hidden">
+
+            <img data-aos="zoom-in" data-aos-duration="1000" id="main-image" style="object-position: center;"
+                 src="{% static 'img/galeri/4.png' %}"
+                 class="w-full h-full object-cover fade-transition"
+                 alt="Kegiatan Perpustakaan">
+
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                <h3 id="main-title"
+                    class="text-white text-xl md:text-3xl font-serif tracking-wide drop-shadow-lg">
+                    Club Perpustakaan dan Jurnalistik
+                </h3>
+            </div>
+            <button onclick="prevSlide()"
+                class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-3 rounded-full transition opacity-0 group-hover:opacity-100">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="2.5"
+                     stroke="currentColor"
+                     class="w-5 h-5">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </button>
+            <button onclick="nextSlide()"
+                class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white p-3 rounded-full transition opacity-0 group-hover:opacity-100">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke-width="2.5"
+                     stroke="currentColor"
+                     class="w-5 h-5">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </button>
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-6 gap-3 mt-4"
+             id="thumbnail-container">
+        </div>
+        <div class="flex justify-between items-center mt-5 px-2">
+            <h2 class="text-slate-800 font-bold text-lg tracking-tight">
+                Galeri Kegiatan
+            </h2>
+
+            <div class="flex items-center gap-2 bg-slate-100 px-3 py-2 rounded-lg">
+                <i class="fas fa-images text-slate-500"></i>
+                <span id="jumlah-foto"
+                      class="text-sm font-semibold text-slate-600">
+                </span>
+                <span class="text-sm text-slate-600">Foto</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+<script>
+        const galleryData = [
+            {
+                src: "{% static 'img/galeri/4.png' %}",
+                title: "Club Perpustakaan dan Jusnalistik"
+            },
+            {
+                src: "{% static 'img/galeri/2.png' %}",
+                title: "Rapat Monev"
+            },
+            {
+                src: "{% static 'img/galeri/3.png' %}",
+                title: "Bonding Antar Angkatan"
+            },
+            {
+                src: "{% static 'img/galeri/1.png' %}",
+                title: "Kelas Jurnalistik"
+            },
+            
+            {
+                src: "{% static 'img/galeri/5.png' %}",
+                title: "Buka Bersama"
+            },
+            {
+                src: "{% static 'img/galeri/6.png' %}",
+                title: "Kunjungan ke Perpustakaan Balai Pemuda"
+            }
+        ];
+
+        let currentIndex = 0;
+        document.getElementById("jumlah-foto").textContent = galleryData.length;
+        const mainImage = document.getElementById("main-image");
+        const mainTitle = document.getElementById("main-title");
+        const thumbnailContainer = document.getElementById("thumbnail-container");
+
+        function renderThumbnails() {
+            thumbnailContainer.innerHTML = "";
+            galleryData.forEach((item, index) => {
+                const isSelected = index === currentIndex;
+                const thumbHTML = `
+                    <div onclick="setSlide(${index})" 
+                         class="h-20 sm:h-24 rounded-[14px] overflow-hidden cursor-pointer relative transition-transform duration-200 hover:scale-[1.02] ${isSelected ? 'ring-2 ring-slate-800' : 'opacity-70 hover:opacity-100'}">
+                        <img data-aos="zoom-in" data-aos-duration="1000" src="${item.src}" class="w-full h-full object-cover" alt="Thumbnail ${index + 1}">
+                        ${isSelected ? '<div class="absolute inset-0 bg-black/10"></div>' : ''}
+                    </div>
+                `;
+                thumbnailContainer.innerHTML += thumbHTML;
+            });
+        }
+
+        function updateMainSlide() {
+            mainImage.style.opacity = 0;
+            mainTitle.style.opacity = 0;
+            
+            setTimeout(() => {
+                mainImage.src = galleryData[currentIndex].src;
+                mainTitle.innerText = galleryData[currentIndex].title;
+                
+                mainImage.style.opacity = 1;
+                mainTitle.style.opacity = 1;
+                
+                renderThumbnails();
+            }, 200); 
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % galleryData.length;
+            updateMainSlide();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + galleryData.length) % galleryData.length;
+            updateMainSlide();
+        }
+
+        function setSlide(index) {
+            currentIndex = index;
+            updateMainSlide();
+        }
+
+        renderThumbnails();
+    </script>
+{% endblock %}

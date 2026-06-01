@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ bulan }}-{{ tahun }}|Rekap Data Kunjungan Perpustakaan Aksara Garuda</title>
+    <style>
+        *{
+            font-size: 14px;
+        }
+    table {
+        margin:auto;
+        width: 80%; 
+        border-collapse: collapse;
+    }
+    table,tr,td {
+        border: 1px solid black; 
+    }
+    td {
+        padding: 8px; 
+        text-align: left; 
+    }
+    #biru {
+        background-color: rgb(206, 205, 205);
+        font-weight: bold;
+    }
+    a{
+        color:rgb(29, 190, 218);
+    }
+
+    @page {
+        margin: 20px 50px 50px 50px; 
+    }
+    header {
+        position: fixed;
+        /* top: -150px; */
+        left: 0;
+        right: 0;
+        height: 150px;
+    }
+    main {
+        width: 100%;
+    }
+    </style>
+</head> 
+<body>
+    <header>
+                <img style="max-width: 90%;margin:auto" src="data:image/png;base64,{{ kop_base64 }}" alt="">
+    <!-- <div class="d-flex" id="kopSurat" style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="width: 30%; text-align: left;">
+            <img style="height: 70px; width: auto;" src="data:image/png;base64,{{ logo_upn_base64 }}" alt="Logo">
+        </div>
+        <div style="flex: 1; text-align: center;margin-top:-200px;width:530px;margin-left:80px;">
+            <p style="text-align:center;font-size: 18px; margin: auto;width:75%">KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI</p>
+            <p style="text-align:center;font-size: 15px; font-weight: bolder; margin: 0;">UNIVERSITAS PEMBANGUNAN NASIONAL "VETERAN" JAWA TIMUR</p>
+            <p style="text-align:center;font-size: 16px; font-weight: bolder; margin: 0;">ASRAMA MAHASISWA NUSANTARA SURABAYA</p>
+            <p style="text-align:center;font-size: 14px; margin: 0;">Jalan Jemur Andayani, Siwalankerto, Wonocolo, Surabaya 60237</p>
+            <p style="text-align:center;font-size: 14px; margin: 0;">Laman : <a href="https://amnsurabaya.id">https://amnsurabaya.id</a> - Email : <a href="mailto:amn@upnjatim.ac.id">amn@upnjatim.ac.id</a></p>
+        </div>
+        <div style="width: 27%; text-align: right;left:73%;top:0px;position: absolute;">
+            <img style="height: 70px; width: auto;" src="data:image/png;base64,{{ logo_amn_base64 }}" alt="Logo">
+        </div>
+    </div> -->
+    <hr>
+</header>
+<main>
+    <h5 style="text-align:center;letter-spacing:6px;font-family:monospace;font-weight:bolder;font-size:16px;">BULAN {{bulan}} {{tahun}}</h5>
+    <h5 style="text-align:center;font-family:monospace;font-weight:bolder;font-size:18px;margin-top:30px;line-height:20px;width:72%;margin:auto;">DATA KUNJUNGAN PERPUSTAKAAN AKSARA GARUDA</h5>
+    <h5 style="text-align:center;font-family:monospace;font-weight:bolder;font-size:18px;margin-top:30px;line-height:20px;width:100%;margin:auto;">ASRAMA MAHASISWA NUSANTARA (AMN) SURABAYA TAHUN {{tahun}}</h5>
+    <br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="background-color:yellow;padding:10px;width: 5%; text-align: center;">No</th>
+                <th style="background-color:yellow;padding:10px;width: 30%; text-align: center;">Nama Pengunjung</th>
+                <th style="background-color:yellow;padding:10px;width: 25%; text-align: center;">Kampus</th>
+                <th style="background-color:yellow;padding:10px;width: 20%; text-align: center;">Tanggal Kunjungan</th>
+                <th style="background-color:yellow;padding:10px;width: 20%; text-align: center;">Tujuan</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                <td style="text-align: center;">{{ forloop.counter }}</td>
+                <td>{{ item.pengunjung.user.first_name }} {{ item.pengunjung.user.last_name }}</td>
+                <td>{{ item.pengunjung.instansi|default:"-" }}</td>
+                <td style="text-align: center;">{{ item.masuk|date:"d/m/Y" }}</td>
+                <td>{{ item.tujuan|default:"Membaca / Meminjam Buku" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center;">Tidak ada data kunjungan pada bulan {{ bulan }} {{ tahun }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+</table>
+
+</main>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekap Data Kunjungan Perpustakaan Aksara Garuda - {{ bulan }} {{ tahun }}</title>
+    <style>
+        * {
+            font-size: 16px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        table {
+            margin: auto;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #d3d3d3;
+            font-weight: bold;
+            text-align: center;
+        }
+        td {
+            text-align: left;
+        }
+        .text-center {
+            text-align: center;
+        }
+        a {
+            color: rgb(29, 190, 218);
+            text-decoration: none;
+        }
+        @page {
+            margin: 180px 50px 50px 50px;
+        }
+        header {
+            position: fixed;
+            top: -150px;
+            left: 0;
+            right: 0;
+            height: 150px;
+        }
+        main {
+            width: 100%;
+            margin-top: 20px;
+        }
+        hr {
+            margin: 5px 0;
+        }
+        .table-container {
+            margin-top: 30px;
+        }
+        .footer-signature {
+            margin-top: 40px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .signature-box {
+            width: 43%;
+            text-align: center;
+        }
+        .signature-line {
+            margin-top: 60px;
+        }
+        .signature-line hr {
+            margin: 0;
+        }
+        .total-pengunjung {
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="d-flex" id="kopSurat" style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="width: 25%; text-align: left;">
+                {% if logo_upn_base64 %}
+                <img style="height: 70px; width: auto;" src="data:image/png;base64,{{ logo_upn_base64 }}" alt="Logo UPN" width="70">
+                {% endif %}
+            </div>
+            <div style="flex: 1; text-align: center; margin-top: -20px;">
+                <p style="text-align:center; font-size: 14px; margin: 0; font-weight: bold;">KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI</p>
+                <p style="text-align:center; font-size: 14px; font-weight: bold; margin: 0;">UNIVERSITAS PEMBANGUNAN NASIONAL "VETERAN" JAWA TIMUR</p>
+                <p style="text-align:center; font-size: 15px; font-weight: bold; margin: 0;">ASRAMA MAHASISWA NUSANTARA SURABAYA</p>
+                <p style="text-align:center; font-size: 12px; margin: 0;">Jalan Jemur Andayani, Siwalankerto, Wonocolo, Surabaya 60237</p>
+                <p style="text-align:center; font-size: 12px; margin: 0;">Laman : <a href="https://amnsurabaya.id">https://amnsurabaya.id</a> - Email : <a href="mailto:amn@upnjatim.ac.id">amn@upnjatim.ac.id</a></p>
+            </div>
+            <div style="width: 25%; text-align: right;">
+                {% if logo_amn_base64 %}
+                <img style="height: 70px; width: auto;" src="data:image/png;base64,{{ logo_amn_base64 }}" alt="Logo AMN" width="70">
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+    </header>
+
+    <main>
+        <h5 style="text-align:center; letter-spacing:6px; font-family:monospace; font-weight:bolder; font-size:16px; text-decoration:underline;">REKAP BULANAN</h5>
+        <p style="text-align:center; margin-top:-10px; font-size:14px; color:rgb(49,49,49);">Laporan Data Pengunjung Perpustakaan Aksara Garuda</p>
+        
+        <h5 style="text-align:center; font-family:monospace; font-weight:bolder; font-size:18px; margin-top:20px;">DATA PENGUNJUNG PERPUSTAKAAN AKSARA GARUDA</h5>
+        <h5 style="text-align:center; font-family:monospace; font-weight:bolder; font-size:18px;">ASRAMA MAHASISWA NUSANTARA (AMN) SURABAYA</h5>
+        <h5 style="text-align:center; font-family:monospace; font-weight:bolder; font-size:16px;">BULAN {{ bulan|upper }} {{ tahun }}</h5>
+        
+        <div class="total-pengunjung">
+            <p><strong>Total Pengunjung : {{ total_pengunjung }} Orang</strong></p>
+            <p><strong>Periode : 1 s/d {{ tanggal_akhir|default:"31" }} {{ bulan }} {{ tahun }}</strong></p>
+        </div>
+
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%; text-align: center;">No</th>
+                        <th style="width: 30%; text-align: center;">Nama Pengunjung</th>
+                        <th style="width: 25%; text-align: center;">Kampus</th>
+                        <th style="width: 20%; text-align: center;">Tanggal Kunjungan</th>
+                        <th style="width: 20%; text-align: center;">Tujuan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td style="text-align: center;">{{ forloop.counter }}</td>
+                        <td>{{ item.pengunjung.user.first_name }} {{ item.pengunjung.user.last_name }}</td>
+                        <td>{{ item.pengunjung.instansi|default:"-" }}</td>
+                        <td style="text-align: center;">{{ item.masuk|date:"d/m/Y" }}</td>
+                        <td>{{ item.tujuan|default:"Membaca / Meminjam Buku" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center;">Tidak ada data kunjungan pada bulan {{ bulan }} {{ tahun }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html> -->

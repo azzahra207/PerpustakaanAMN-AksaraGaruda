@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File create</title>
+</head>
+<body>
+    <h1>Input Petugas Perpustakaan</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="nama">Nama : </label>
+        <input type="text" placeholder="ketik nama" name="nama">
+        <button type="submit">Kirim</button>
+
+    </form>
+</body>
+</html>

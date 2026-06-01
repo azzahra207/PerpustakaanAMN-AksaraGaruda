@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        @media only screen and (max-width:767px){
+            .div-container{
+                flex-wrap: wrap;
+            }
+            .right, .left{
+                width: 100% !important;
+            }
+        }
+        @media only screen and (min-width:768px){
+            .div-container{
+                flex-wrap: nowrap;
+            }
+        }
+    </style>
+ <h1 class="text-danger-emphasis mb-3 fw-bold" style="margin-left: 7%;margin-top:100px; font-size:30px">Data Buku Detail</h1>
+ <div class="rounded-3 mb-3" style="width: 120px;border:solid #a01313 3px;margin-left: 7%"></div> 
+ <div class="card mx-auto div-container" style="width: 90%;">
+ <div class="d-flex flex-row gap-3 p-3">
+     <div style="width: 40%;" class="left">
+         <img style="width: 90%;margin: auto;" src="{{ book.foto.url }}" alt="">
+        </div>
+        <div style="width: 60%;" class="p-3 right">
+    <h3 class="fw-bold" style="font-size: 30px;">{{ book.judul }}</h3>
+    <div class="rounded-3 mb-3" style="width: 120px; border: solid #a01313 3px;"></div> 
+
+    <div class="row g-2 mt-3">
+        
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Nomor Katalog</span>
+                <span class="text-dark fw-bold">{{ book.nomor_katalog|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">ISBN-ISSN</span>
+                <span class="text-dark fw-bold">{{ book.isbn_issn|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Bahasa</span>
+                <span class="text-dark fw-bold">{{ book.bahasa|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Pengarang</span>
+                <span class="text-dark fw-bold">{{ book.pengarang|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Negara</span>
+                <span class="text-dark fw-bold">{{ book.negara|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Provinsi</span>
+                <span class="text-dark fw-bold">{{ book.provinsi|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Kota</span>
+                <span class="text-dark fw-bold">{{ book.kota|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Penerbit</span>
+                <span class="text-dark fw-bold">{{ book.penerbit|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Tahun</span>
+                <span class="text-dark fw-bold">{{ book.tahun|default:"-" }}</span>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="card bg-secondary-subtle p-2 rounded-2 h-100 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Subjek</span>
+                <span class="text-dark fw-bold">{{ book.subjek|default:"-" }}</span>
+            </div>
+        </div>  
+
+        <div class="col-12">
+            <div class="card bg-secondary-subtle p-2 rounded-2 border-0">
+                <span class="text-secondary" style="font-size: 14px;">Jenis</span>
+                <span class="text-dark fw-bold">{{ book.jenis|default:"-" }}</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<div class="p-3">
+    <h5 class="fw-bold mb-3" style="font-size: 30px;">Sinopsis</h5>
+    <div class="rounded-3 mb-3" style="width: 120px; border: solid #a01313 3px;"></div> 
+    <p style="text-align: justify;">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquid sapiente ducimus velit excepturi repudiandae? Soluta recusandae eius neque aperiam consequuntur odit itaque fuga hic nam sint praesentium placeat veritatis sit iste expedita quia explicabo vero porro animi, corporis, voluptatibus, nisi nobis temporibus possimus? Accusantium quaerat quas rerum ratione odio, sunt impedit, quasi nobis quibusdam harum veniam possimus sapiente illo qui, facere laborum! Necessitatibus numquam impedit nobis cupiditate modi earum vitae ipsam! Nulla doloribus voluptatibus iusto hic amet blanditiis officia nesciunt qui ex optio quibusdam consequatur culpa temporibus voluptate tenetur neque officiis commodi velit, quaerat aliquid? At obcaecati officiis accusantium!
+    </p>
+    <p style="text-align: justify;">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores aliquid sapiente ducimus velit excepturi repudiandae? Soluta recusandae eius neque aperiam consequuntur odit itaque fuga hic nam sint praesentium placeat veritatis sit iste expedita quia explicabo vero porro animi, corporis, voluptatibus, nisi nobis temporibus possimus? Accusantium quaerat quas rerum ratione odio, sunt impedit, quasi nobis quibusdam harum veniam possimus sapiente illo qui, facere laborum! Necessitatibus numquam impedit nobis cupiditate modi earum vitae ipsam! Nulla doloribus voluptatibus iusto hic amet blanditiis officia nesciunt qui ex optio quibusdam consequatur culpa temporibus voluptate tenetur neque officiis commodi velit, quaerat aliquid? At obcaecati officiis accusantium!
+    </p>
+</div>
+</div>
+
+<h1 class="text-danger-emphasis mt-5 mb-3 fw-bold" style="margin-left: 7%;margin-top:100px; font-size:30px">Mungkin Anda Juga Suka</h1>
+ <div class="rounded-3 mb-3" style="width: 120px;border:solid #a01313 3px;margin-left: 7%"></div> 
+
+
+<div class="books d-flex justify-content-start gap-3 overflow-x-auto">
+    {% for book in jenis_serupa %}
+    <div data-aos="zoom-in" data-aos-duration="1000" class="card p-0 shadow-lg mb-3" style="width: 300px;min-width: 300px;height: auto;border-radius: 20px;">
+        <div style="overflow: hidden;border-top-right-radius: 20px;border-top-left-radius: 20px ;" class="w-100">
+            <img src="{{ book.foto.url }}" alt="cover" class="w-100 cover" style="height: 300px;object-fit:cover ;object-position: top;border-top-right-radius: 20px;border-top-left-radius: 20px ;">
+        </div>
+        <div class="info p-3">
+            <div style="min-height: 150px;width: 100%;">
+                <h3 class="fw-bold">{{ book.judul|truncatechars:50 }}</h3>
+                <p class="text-danger-emphasis fw-bold">{{book.pengarang}}</p>
+                <p>Stok Tersedia : {{book.stok}}</p>
+                
+            </div>
+            <div class="d-flex"> 
+                {% if user.is_authenticated %}
+                {% if user.username == '22110009' or user.username == '22120020' %}
+                <a href="{% url 'buku.qr' book.id %}" class="group/btn flex items-center justify-center rounded-xl bg-gradient-to-r from-red-600 to-red-700 py-2 px-2 font-semibold text-white shadow-md transition-all duration-200 hover:shadow-xl hover:shadow-red-500/50">
+					<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"/>
+                    </svg>
+                    <!-- <span>Barcode</span> -->
+				</a>
+                {% endif %}
+                {% endif %}
+
+                <!-- <a href="{% url 'buku.qr' book.id %}" style="width: 150px;" >
+                    <button style="font-size: 12px;" class="btn btn-success p-2">
+                        Download QR
+                    </button>
+                </a> -->
+                <div class="fw-bold mt-2" id="tombolMore" style="text-align: end;color:#a30c0c">
+                    <a class="text-decoration-none" href="{% url 'buku.show' book.id %}">
+                        Selengkapnya &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+ <a href="{% url 'buku.index' %}" class="btn btn-danger my-3 tombol-hijau mx-auto d-block my-5" style="width: 150px;">Kembali</a>
+{%endblock%}

@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+{% block content %}
+
+<style>
+    .headerutama{
+        position: absolute;
+        top:200px;
+        left: 30%;
+        font-weight: bold;
+    }
+</style>
+{% load static %}
+<header>
+    <img src="{%static 'img/landing.jpg' %}" alt="">
+</header>
+<h1 class="headerutama" style="font-size:30px;color:brown">Perpustakaan Aksara Garuda</h1>
+
+{% endblock %}
+<!-- 
+Desi Ratnasari
+desiratnasari042006@gmail.com
+3513095512060002
+6283146274133
+desi@AMN2026
+
+-- Hapus semua data terkait NIK yang mau kamu daftar ulang
+DELETE FROM users WHERE nik = '3513095512060002';
+
+-- Hapus kandidat yang user-nya udah kehapus
+DELETE FROM candidates WHERE id_user = (SELECT id FROM users WHERE nik = '3513095512060002');
+
+-- Hapus step phase yang kandidatnya kehapus
+DELETE FROM step_phases WHERE candidate_id IN (SELECT id FROM candidates WHERE id_user = (SELECT id FROM users WHERE nik = '3513095512060002')); -->

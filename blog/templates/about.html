@@ -1,0 +1,295 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .fade-in {
+        animation: fadeIn 0.8s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+     .hero-kunjungan {
+        background: linear-gradient(135deg, rgb(109, 3, 3), rgb(170, 38, 5), rgb(233, 111, 95));
+        padding: 80px 0 50px 0;
+        margin-top: 70px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+    .hero-kunjungan .container {
+        position: relative;
+        z-index: 2;
+    }
+</style>
+<section class="hero-kunjungan" data-aos="fade-down" data-aos-duration="1000">
+    <div class="container">
+        <div class="text-center text-white">
+            <div class="garuda-icon d-flex justify-content-center">
+                <img class="bg-light rounded-circle mb-3" src="{% static 'img/logo-perpus-removebg.png' %}" alt="">
+            </div>
+            <h1 class="display-4 fw-bold mb-3">Tentang Kami</h1>
+            <p class="lead mb-4">Asrama Mahasiswa Nusantara Surabaya</p>
+        </div>
+    </div>
+</section>
+<section class="max-w-6xl mx-auto 
+                bg-white/10 
+                backdrop-blur-md
+                text-black 
+                p-10 
+                rounded-[35px] 
+                shadow-2xl 
+                mt-16 
+                fade-in">
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+
+        <div>
+            <img 
+                src="{% static 'img/AMN-1.jpeg' %}"
+                class="w-full rounded-[25px] shadow-xl"
+                alt="AMN Surabaya"
+            >
+        </div>
+
+        <div>
+
+            <h2 class="text-3xl text-danger-emphasis font-bold mb-5">
+                Profil AMN Surabaya
+            </h2>
+
+            <p class="text-black/80 leading-relaxed text-lg">
+                Asrama Mahasiswa Nusantara Surabaya merupakan lingkungan pembinaan mahasiswa 
+                yang berfokus pada pengembangan karakter, kepemimpinan, dan prestasi generasi muda Indonesia.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="max-w-5xl mx-auto mt-20 fade-in">
+
+    <div class="bg-white/10 
+                backdrop-blur-md 
+                border border-white/10
+                rounded-[35px]
+                shadow-2xl
+                p-14 
+                text-center 
+                text-black">
+
+        <div class="text-5xl mb-5 text-red-900">
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+
+        <h2 class="text-4xl text-danger-emphasis font-bold mb-6">
+            Visi & Misi AMN
+        </h2>
+
+        <p class="text-black/80 text-lg leading-relaxed">
+            Menyiapkan Sumber Daya Manusia yang Berkualitas, Berintegritas, dan Berkarakter Kebangsaan serta Cinta Kepada Bangsa dan Negara.
+        </p>
+        <hr class="my-4">
+        <ul class="list-disc list-inside text-start text-black/80 text-lg leading-relaxed">
+            <li>Melaksanakan rekrutmen penerima beasiswa dan penghuni asrama berbasis transparansi,akuntabilitas,efiesien dan keberagamaan</li>
+            <li>Melaksanakan pembinaan penerima beasiswa dan penghuni asrama berbasis wawasan kebangsaan,kewarganeraan karakter Pelajar Pancasila, Bela Negara,Kewirausahaan,Kepimpinan dan Pelaporan dengan Penguatan kesamaptaan</li>
+            <li>Melaksanakan peningkatan kompetensi penerima beasiswa dan penghuni asrama berbasis kultur akdemik yang kompetitif</li>
+            <li>Melaksanakan pengelolaan asrama yang transparan,akuntabel dan efisiensi yang berkeadilan</li>
+        </ul>
+
+    </div>
+
+</section>
+
+
+<section class="max-w-6xl mx-auto mt-20 mb-24 fade-in">
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+        <div class="bg-white/10 
+                    backdrop-blur-md
+                    text-black
+                    rounded-[30px]
+                    p-8
+                    shadow-xl
+                    hover:scale-105
+                    transition duration-300">
+
+            <div class="text-4xl mb-4 text-red-900">
+                <i class="fas fa-user-shield"></i>
+            </div>
+
+            <h3 class="text-danger-emphasis text-2xl font-bold mb-3">
+                Karakter
+            </h3>
+
+            <p class="text-black/80">
+                Membentuk mahasiswa yang disiplin, berintegritas, dan memiliki jiwa nasionalisme tinggi.
+            </p>
+             <div class="fw-bold mt-2" id="tombolMore" style="text-align: end;color:#a30c0c">
+                    <a class="text-decoration-none" href="https://amnsurabaya.id/kepengasuhan">
+                        Selengkapnya &rarr;
+                    </a>
+                </div>
+
+        </div>
+
+        <div class="bg-white/10 
+                    backdrop-blur-md
+                    text-black
+                    rounded-[30px]
+                    p-8
+                    shadow-xl
+                    hover:scale-105
+                    transition duration-300">
+
+            <div class="text-4xl mb-4 text-red-900">
+                <i class="fas fa-trophy"></i>
+            </div>
+
+            <h3 class="text-danger-emphasis text-2xl font-bold mb-3">
+                Prestasi
+            </h3>
+
+            <p class="text-black/80">
+                Mendukung pengembangan potensi akademik maupun non-akademik mahasiswa.
+            </p>
+             <div class="fw-bold mt-2" id="tombolMore" style="text-align: end;color:#a30c0c">
+                    <a class="text-decoration-none" href="https://amnsurabaya.id/prestasi">
+                        Selengkapnya &rarr;
+                    </a>
+                </div>
+
+        </div>
+
+        <div class="bg-white/10 
+                    backdrop-blur-md
+                    text-black
+                    rounded-[30px]
+                    p-8
+                    shadow-xl
+                    hover:scale-105
+                    transition duration-300">
+
+            <div class="text-4xl mb-4 text-red-900">
+                <i class="fas fa-user-tie"></i>
+            </div>
+
+            <h3 class="text-danger-emphasis text-2xl font-bold mb-3">
+                Kepemimpinan
+            </h3>
+
+            <p class="text-black/80">
+                Menyiapkan generasi muda yang siap menjadi pemimpin masa depan bangsa.
+            </p>
+            <div class="fw-bold mt-2" id="tombolMore" style="text-align: end;color:#a30c0c">
+                    <a class="text-decoration-none" href="https://amnsurabaya.id/senat-mahasiswa">
+                        Selengkapnya &rarr;
+                    </a>
+                </div>
+
+        </div>
+        <div class="bg-white/10 
+                    backdrop-blur-md
+                    text-black
+                    rounded-[30px]
+                    p-8
+                    shadow-xl
+                    hover:scale-105
+                    transition duration-300">
+
+            <div class="text-4xl mb-4 text-red-900">
+                <i class="fas fa-brain"></i>
+            </div>
+
+            <h3 class="text-danger-emphasis text-2xl font-bold mb-3">
+                Inovasi
+            </h3>
+
+            <p class="text-black/80">
+                Mendorong generasi inovatif dan siap menghadapi tantangan masa depan melalui pengembangan ide-ide baru
+            </p>
+            <div class="fw-bold mt-2" id="tombolMore" style="text-align: end;color:#a30c0c">
+                    <a class="text-decoration-none" href="https://amnsurabaya.id/berita">
+                        Selengkapnya &rarr;
+                    </a>
+                </div>
+
+        </div>
+        <div class="bg-white/10 
+                    backdrop-blur-md
+                    text-black
+                    rounded-[30px]
+                    p-8
+                    shadow-xl
+                    hover:scale-105
+                    transition duration-300">
+
+            <div class="text-4xl mb-4 text-red-900">
+                <i class="fas fa-building"></i>
+            </div>
+
+            <h3 class="text-danger-emphasis text-2xl font-bold mb-3">
+                Fasilitas
+            </h3>
+
+            <p class="text-black/80">
+                Fasilitas modern dan berkualitas untuk mendukung proses pembelajaran dan kegiatan mahasiswa.
+            </p>
+            <div class="fw-bold mt-2" id="tombolMore" style="text-align: end;color:#a30c0c">
+                    <a class="text-decoration-none" href="https://amnsurabaya.id/fasilitas">
+                        Selengkapnya &rarr;
+                    </a>
+                </div>
+
+        </div>
+        <div class="bg-white/10 
+                    backdrop-blur-md
+                    text-black
+                    rounded-[30px]
+                    p-8
+                    shadow-xl
+                    hover:scale-105
+                    transition duration-300">
+
+            <div class="text-4xl mb-4 text-red-900">
+                <i class="fas fa-chalkboard-user"></i>
+            </div>
+
+            <h3 class="text-danger-emphasis text-2xl font-bold mb-3">
+                Pembinaan
+            </h3>
+
+            <p class="text-black/80">
+                Pengembangan potensi mahasiswa melalui program pembinaan yang komprehensif dan berkelanjutan
+            </p>
+            <div class="fw-bold mt-2" id="tombolMore" style="text-align: end;color:#a30c0c">
+                    <a class="text-decoration-none" href="https://amnsurabaya.id/pembinaan">
+                        Selengkapnya &rarr;
+                    </a>
+                </div>
+
+        </div>
+
+    </div>
+
+    <div class="mt-5 d-flex justify-content-center ">
+        <a href="https://amnsurabaya.id" class="btn tombol-hijau">Web Profil AMN Surabaya</a>
+    </div>
+
+</section>
+
+{% endblock %}

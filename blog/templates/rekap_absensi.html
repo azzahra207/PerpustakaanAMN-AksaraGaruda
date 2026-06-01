@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="container mt-5 pt-5">
+
+    <h2 class="mb-4">Rekap Absensi Petugas</h2>
+
+    <table class="table table-bordered">
+
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Hari</th>
+                <th>Jam Jadwal</th>
+                <th>Status</th>
+                <th>Jam Masuk</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for item in data_rekap %}
+
+            <tr>
+
+                <td>
+                    {{ item.petugas.pengunjung.user.first_name }}
+                    {{ item.petugas.pengunjung.user.last_name }}
+                </td>
+
+                <td>{{ item.hari }}</td>
+
+                <td>
+                    {{ item.mulai }} - {{ item.selesai }}
+                </td>
+
+                <td>
+
+                    {% if item.status == 'HADIR' %}
+                        <span class="badge bg-success">
+                            Hadir
+                        </span>
+
+                    {% elif item.status == 'TERLAMBAT' %}
+                        <span class="badge bg-warning">
+                            Terlambat
+                        </span>
+
+                    {% elif item.status == 'IZIN' %}
+                        <span class="badge bg-info">
+                            Izin
+                        </span>
+
+                    {% else %}
+                        <span class="badge bg-danger">
+                            Alpa
+                        </span>
+                    {% endif %}
+
+                </td>
+
+                <td>
+                    {{ item.jam_masuk|default:'-' }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</section>
+
+{% endblock %}
