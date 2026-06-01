@@ -27,13 +27,13 @@ Fitur Utama:
  8. Halaman http://127.0.0.1:8000/admin untuk manajemen tabel di database
 ----------------------------------------------------
 Pemrograman berorientasi objek (object oriented programming – OOP) merupakan pemrograman yang berorientasikan kepada objek, dimana semua data dan fungsi dibungkus dalam class-class atau object-object. Setiap objek dapat menerima pesan, memproses data, mengirim, menyimpan dan memanipulasi data.
-•	Enkapsulasi (Encapsulation)
+1. Enkapsulasi (Encapsulation)
 Proses membungkus data (atribut) dan metode dalam satu class untuk melindungi data serta mengatur aksesnya. Dalam project ini, konsep encapsulasi digunakan pada property jumlah kunjungan dan penentuan status keterlambatan pengembalian buku. Property tersebut bersifat private, sehingga tidak dapat diakses di luar classnya. Pada saat rekap kunjungan, pengembalian, dan penambahan data diperlukan method getter dan setter untuk memodifikasi property.
-•	Abstraksi (Abstraction)
+2. Abstraksi (Abstraction)
 Menampilkan fungsi yang penting kepada pengguna dan menyembunyikan detail implementasi yang tidak diperlukan. Dalam project Django, pembuatan class abstract di dalam file models.py tidak akan dihasilkan tabel sebagaimana class pada umumnya. Sesuai fungsi dari abstraksi (pedoman dari class lainnya), class abstrak Aktivitas hanya menyimpan method kosong yang akan diisi sesuai kebutuhan class masing masing.
-•	Inheritance (Pewarisan)
+3. Inheritance (Pewarisan)
 Mekanisme yang memungkinkan suatu kelas mewarisi atribut dan metode dari kelas lain sehingga kode dapat digunakan kembali. Dalam project ini, inheritance diterapkan pada fitur presensi kunjungan. Class Pengunjung sebagai parent dan Class Pengunjungistimewa sebagai child. Keduanya memiliki beberapa property identitas yang sama. Namun PengunjungIstimewa memiliki tambahan property jabatan serta tambahan method register yang dijalankan setiap kali melakukan kunjungan ke perpustakaan.
-•	Polimorfisme (Polymorphism)
+4. Polimorfisme (Polymorphism)
 Kemampuan suatu metode atau antarmuka untuk memiliki banyak bentuk atau perilaku yang berbeda sesuai dengan objek yang menggunakannya. Contohnya operasi "membuka" dapat berarti membuka berkas, jendela, koran, atau percakapan.  Sama halnya dengan konsep dashboard yang diterapkan dalam project ini. Setiap objek class dari package user memiliki status beserta label identitas yang berbeda, namun ketiganya ditampilkan dalam dashboard yang sama. Konten akan menampilkan masing masing label status identitas dengan satu variabel yang sama, namun blok kode di dalamnya disesuaikan dengan status user yang bersangkutan.
 --------------------------------------------------------------
 Screenshoot Hasil tampilan dapat diakses melalui tautan gdrive berikut ini:
