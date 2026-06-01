@@ -314,11 +314,13 @@ def KunjunganToday(request):
     bulan_angka = int(bulan_angka)
     tahun = int(tahun)
     today = timezone.now().date()
+    data_bulan = Kunjungan.objects.filter(masuk__month = bulan_angka)
     data = Kunjungan.objects.filter(masuk__date = today)
     return render(request,'kunjungan/today.html',{
         'data':data,
         'bulan_angka':bulan_angka,
         'tahun':tahun,
+        'data_bulan':data_bulan,
         })
 
 def kunjungan_detail(request, id):
