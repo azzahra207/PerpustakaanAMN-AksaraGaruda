@@ -51,14 +51,13 @@ Screenshoot Hasil tampilan dapat diakses melalui tautan berikut ini:
 ![Struktur](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/Struktur.jpeg)
 ![TentangKami](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/TentangKami.jpeg)
 
-![InputDataTamu](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/InputDataTamu.jpeg)
-![RekapKunjunganTamu](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/RekapKunjunganTamu.jpeg)
-![Contoh_QR 15_Rahasia_Doa_Lulus_Ujian-978-623-00-2178-7](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/Contoh_QR 15_Rahasia_Doa_Lulus_Ujian-978-623-00-2178-7.png)
-![DetailBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/DetailBuku.jpeg)
-![KatalogBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/KatalogBuku.jpeg)
-![RekapAbsesnsiPetugas](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/RekapAbsensiPetugas.jpeg)
-![RekapPengunjungHariIni](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/RekapPengunjungHariIni.jpeg)
-![ScannerPinjamDanKembalikanBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/ScannerPinjamDanKembalikanBuku.jpeg)
+![InputDataTamu](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/InputDataTamu.jpeg)
+![RekapKunjunganTamu](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/RekapKunjunganTamu.jpeg)
+![DetailBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/DetailBuku.jpeg)
+![KatalogBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/KatalogBuku.jpeg)
+![RekapAbsesnsiPetugas](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/RekapAbsensiPetugas.jpeg)
+![RekapPengunjungHariIni](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/RekapPengunjungHariIni.jpeg)
+![ScannerPinjamDanKembalikanBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/ScannerPinjamDanKembalikanBuku.jpeg)
 
 
 https://drive.google.com/drive/folders/19dCQoS_-4PisZ7PDqjNJz5NXmyhxXeyd?usp=sharing
