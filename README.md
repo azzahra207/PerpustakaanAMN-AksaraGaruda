@@ -57,7 +57,8 @@ Screenshoot Hasil tampilan dapat diakses melalui tautan berikut ini:
 ![KatalogBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/KatalogBuku.jpeg)
 ![RekapAbsesnsiPetugas](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/RekapAbsensiPetugas.jpeg)
 ![RekapPengunjungHariIni](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/RekapPengunjungHariIni.jpeg)
-![ScannerPinjamDanKembalikanBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/ScannerPinjamDanKembalikanBuku.jpeg)
+![ScannerPinjamDanKembalikanBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/1d2c001efae56004d81bd6e852226aa0c85c4dc4/ssHasil/ScannerPinjamdanKembalikanBuku.jpeg)
+
 
 
 https://drive.google.com/drive/folders/19dCQoS_-4PisZ7PDqjNJz5NXmyhxXeyd?usp=sharing
