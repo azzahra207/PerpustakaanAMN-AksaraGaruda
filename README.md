@@ -37,6 +37,7 @@ Mekanisme yang memungkinkan suatu kelas mewarisi atribut dan metode dari kelas l
 Kemampuan suatu metode atau antarmuka untuk memiliki banyak bentuk atau perilaku yang berbeda sesuai dengan objek yang menggunakannya. Contohnya operasi "membuka" dapat berarti membuka berkas, jendela, koran, atau percakapan.  Sama halnya dengan konsep dashboard yang diterapkan dalam project ini. Setiap objek class dari package user memiliki status beserta label identitas yang berbeda, namun ketiganya ditampilkan dalam dashboard yang sama. Konten akan menampilkan masing masing label status identitas dengan satu variabel yang sama, namun blok kode di dalamnya disesuaikan dengan status user yang bersangkutan.
 --------------------------------------------------------------
 Screenshoot Hasil tampilan dapat diakses melalui tautan berikut ini:
+![Screenshoot Hasil](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/Beranda%20(2).jpeg)
 ![Screnshoot Hasil](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/tree/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil)
 
 https://drive.google.com/drive/folders/19dCQoS_-4PisZ7PDqjNJz5NXmyhxXeyd?usp=sharing
