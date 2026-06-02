@@ -1,3 +1,4 @@
+
 Sistem Informasi Perpustakaan Aksara Garuda
 ---------------------------------------
 Sistem Informasi Perpustakaan Aksara Garuda Asrama Mahasiswa Nusantara Surabaya merupakan sebuah solusi yang dirancang secara spesifik untuk mengelola data peminjaman buku sebagai acuan minat pengunjung untuk memudahkan analisis kualitas dan evaluasi. Hal 
@@ -49,5 +50,14 @@ Screenshoot Hasil tampilan dapat diakses melalui tautan berikut ini:
 ![PilihanLogin](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/PilihanLogin.jpeg)
 ![Struktur](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/Struktur.jpeg)
 ![TentangKami](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/e8faa5afc3f32c20b060c9a0a71c6a53186beb7f/ssHasil/TentangKami.jpeg)
+![InputDataTamu](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/InputDataTamu.jpeg)
+![RekapKunjunganTamu](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/RekapKunjunganTamu.jpeg)
+![Contoh_QR 15_Rahasia_Doa_Lulus_Ujian-978-623-00-2178-7](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/Contoh_QR 15_Rahasia_Doa_Lulus_Ujian-978-623-00-2178-7.png)
+![DetailBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/DetailBuku.jpeg)
+![KatalogBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/KatalogBuku.jpeg)
+![RekapAbsesnsiPetugas](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/RekapAbsensiPetugas.jpeg)
+![RekapPengunjungHariIni](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/RekapPengunjungHariIni.jpeg)
+![ScannerPinjamDanKembalikanBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/7f88398582f0e17c3254ab2a50c6adeee8ade6fc/ssHasil/ScannerPinjamDanKembalikanBuku.jpeg)
+
 
 https://drive.google.com/drive/folders/19dCQoS_-4PisZ7PDqjNJz5NXmyhxXeyd?usp=sharing
