@@ -82,7 +82,7 @@ class PengunjungIstimewa(Pengunjung):
             jabatan=jabatan,
             tujuan=tujuan
         )
-        user.tambah_hadir()
+        # user.tambah_hadir()
         return tamu
  
 class Petugas(models.Model):
