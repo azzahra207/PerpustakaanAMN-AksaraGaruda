@@ -59,6 +59,6 @@ Screenshoot Hasil tampilan dapat diakses melalui tautan berikut ini:
 ![RekapPengunjungHariIni](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/894d92230c8539ff42513174270977bea8d2386e/ssHasil/RekapPengunjungHariIni.jpeg)
 ![ScannerPinjamDanKembalikanBuku](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/1d2c001efae56004d81bd6e852226aa0c85c4dc4/ssHasil/ScannerPinjamdanKembalikanBuku.jpeg)
 
-
+![Rekap-Kunjungan-Bulanan](https://github.com/azzahra207/PerpustakaanAMN-AksaraGaruda/blob/8b75aad123f984455fd3fce4a6d5507cd7d872bf/ssHasil/Screenshot%20(508).png)
 
 https://drive.google.com/drive/folders/19dCQoS_-4PisZ7PDqjNJz5NXmyhxXeyd?usp=sharing
